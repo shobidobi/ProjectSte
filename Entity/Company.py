@@ -2,7 +2,7 @@ from Entity.e import db
 
 
 class Company(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False, unique=True)
     company_name = db.Column(db.String(50), nullable=False)
     def __init__(self, company_name):
         self.company_name = company_name

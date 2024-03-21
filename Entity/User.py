@@ -1,10 +1,14 @@
-from Entity.e import db
-from e import getSession
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+from Entity.e import db,getSession
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False, unique=True)
     user_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
     id_company = db.Column(db.Integer, db.ForeignKey('company.id'))
+    def __init__(self, user_name, email, id_company):
+        self.user_name = user_name
+        self.email = email
+        self.id_company = id_company
+
     def set_email(self, new_email):
         self.email = new_email
 
@@ -21,7 +25,6 @@ class User(db.Model):
         self.id_company = new_id
 
     def get_id_company(self):
-        
         return self.id_company
     def get_id(self):
         return self.id

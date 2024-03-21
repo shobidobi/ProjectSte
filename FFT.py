@@ -1,4 +1,4 @@
-
+import Entity.User
 # import numpy as np
 # from PIL import Image
 # from scipy.fft import fft2, ifft2, fftshift, ifftshift
@@ -134,3 +134,4 @@ def encode_dft(image_path, text):
 # Example usage
 text_to_encode = "hello my name is ariel SOF"
 encode_dft("תמונה1.png", text_to_encode)
+

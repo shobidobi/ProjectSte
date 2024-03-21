@@ -35,4 +35,4 @@ def encode_pvd(original_image_path, secret_data, output_image_path):
 
 
 # Example usage
-encode_pvd("original_image.png", "Hello, World!", "encoded_image_pvd.png")
+encode_pvd(r'C:\Users\ariel\PycharmProjects\pythonProject1\redD.png', "Hello, World!", "encoded_image_pvd.png")
