@@ -46,6 +46,7 @@ def decode(image_path):
         if binary_representation(pixel[0])[7]==0 and binary_representation(pixel[0])[6]==1:
             z = list_to_number(id)
             strs += toid(z)
+            ttt=len(strs)
             tos=0
             if z<100:
                 tos+=1
@@ -54,7 +55,7 @@ def decode(image_path):
             id=[0,0,0]
             j = 2
             t = [0, 0, 0, 0]
-            i+=1
+            i+=1+tos
             l+=1+tos
             continue
 

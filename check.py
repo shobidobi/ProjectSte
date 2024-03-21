@@ -301,7 +301,7 @@ def lsb(str):
     print(n.shape)
 
 
-lsb("ما يتم حفظه بالفعل")
+lsb("הקוד עובד")
 
 pixels, pixel_locations = extract_pixels(image_path)
 print("Pixel values:", type(pixels))
