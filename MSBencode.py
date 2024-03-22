@@ -1,10 +1,32 @@
 import cv2
 import numpy as np
+
 from Entity.Characthers import characther
 from Entity.e import getSession
 
+image_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\redD.png'
+Session = getSession()
+session = Session()
+
+
+def toid(str):
+    """
+
+    :param str: A character to check an ID in the database
+    :return: id of the character
+    """
+    for char in str:
+        # מציאת התו במסד הנתונים
+        char_record = session.query(characther.id).filter_by(char=char).first()
+        if char_record:
+            print(f"ID of '{char}': {char_record[0]}")
+        else:
+            print(f"'{char}' not found in database")
+            return 500
+    return char_record[0]
 def extract_pixels(image_path):
     """
+
     :param image_path:The path to the image
     :return:The list of pixels in the image are represented in RGB
     """
@@ -23,41 +45,16 @@ def extract_pixels(image_path):
             locations.append((x, y))
 
     return pixels.tolist(), locations
-
-
-image_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\redD.png'
-Session = getSession()
-session = Session()
-
-# def process_specific_pixels(image_path, start_pixel, end_pixel):
-#     # קריאת התמונה באמצעות OpenCV
-#     image = cv2.imread(image_path)
-#
-#     # יישור התמונה לרשימת פיקסלים
-#     pixels = image.reshape((-1, 3))
-#
-#     # עבודה עם פיקסלים מסוימים בטווח שניתן
-#     for i in range(start_pixel, end_pixel + 1):
-#         pixel = pixels[i]
-#         # כאן תוכל להוסיף את העיבוד הרצוי שלך על פיקסל זה
-#         print("Pixel", i, ":", pixel)
-# process_specific_pixels(image_path,50,80)
-
-def toid(str):
+def extract_highest_2_bitsper(pixel):
     """
-    :param str: A character to check an ID in the database
-    :return: id of the character
-    """
-    for char in str:
-        # מציאת התו במסד הנתונים
-        char_record = session.query(characther.id).filter_by(char=char).first()
-        if char_record:
-            print(f"ID of '{char}': {char_record[0]}")
-        else:
-            print(f"'{char}' not found in database")
-            return 500
-    return char_record[0]
 
+    :param pixel: the pixel from the image
+    :return: The pixel with its two high bits
+    """
+    lowest_2_bits_pixels = []
+    new_pixel = [value & 0b11000000 for value in pixel]
+    lowest_2_bits_pixels.append(new_pixel)
+    return lowest_2_bits_pixels
 def ret_pixel(digit,p,flag):
     """
 
@@ -77,22 +74,24 @@ def ret_pixel(digit,p,flag):
     l=[0,0]
     l[0]=L[0]*binary_list[0]+L[1]*binary_list[1]#2
     l[1]=L[2]*binary_list[2]+L[3]*binary_list[3]#1
+
     m=[0,0,0]
     m[0]=binary_representation(p[0])
     m[1]=binary_representation(p[1])
     m[2]=binary_representation(p[2])
-    m[2][7]=binary_list[0]
-    m[2][6] = binary_list[1]
-    m[1][7] = binary_list[2]
-    m[1][6] = binary_list[3]
-    m[0][7]=flag[0]
-    m[0][6]=flag[1]
+    m[2][1]=binary_list[0]
+    m[2][0] = binary_list[1]
+    m[1][1] = binary_list[2]
+    m[1][0] = binary_list[3]
+    m[0][1]=flag[0]
+    m[0][0]=flag[1]
     p[0]=binary_to_integer(m[0])
     p[1]=binary_to_integer(m[1])
     p[2]=binary_to_integer(m[2])
     return p
 def binary_to_integer(binary_list):
     """
+
     :param binary_list: A list of bits that represents a binary number
     :return: The number in decimal representation
     """
@@ -102,6 +101,7 @@ def binary_to_integer(binary_list):
     return result
 def binary_representation(number):
     """
+
     :param number: A number in decimal representation
     :return: The number in binary representation
     """
@@ -118,6 +118,7 @@ def binary_representation(number):
     return bits[::-1]
 def Decomposing_a_number(id,p,flag):
     """
+
     :param id: The number identifier in the database
     :param p: the list of three pixel from the image
     :param flag: A flag to mark the current state
@@ -142,6 +143,7 @@ def Decomposing_a_number(id,p,flag):
 
 def create_image_from_pixels(pixels, pixel_locations, image_shape):
     """
+
     :param pixels: The list of pixels
     :param pixel_locations:The locations of the pixels in the image
     :param image_shape: Image size
@@ -157,13 +159,14 @@ def create_image_from_pixels(pixels, pixel_locations, image_shape):
 
     return new_image
 
-def lsb(str,image_path):
+
+def msb(str,image_path):
     """
     The main encryption function at the end of the function saves the information in the copy
     :param str:The string to encrypt
     :param image_path:The path to the image where the information will be encrypted
     """
-    image = cv2.imread(image_path)
+    image = cv2.imread(image_path)#open image to read
     pix,location = extract_pixels(image_path)
     index_in_pixels=0
     x = []
@@ -176,9 +179,6 @@ def lsb(str,image_path):
             if (l-1)==0:
                 list_of_three_pixels = Decomposing_a_number(toid(str[j]), x,[1,0])
                 image[location[index_in_pixels][0]][location[index_in_pixels][1]] = list_of_three_pixels[0]
-                print(index_in_pixels+1)
-                print(len(list_of_three_pixels))
-                print(image[location[index_in_pixels + 1][0]][location[index_in_pixels][1]])
                 if len(list_of_three_pixels)<3:
                     if len(list_of_three_pixels)==1:
                         list_of_three_pixels.append(x[1])
@@ -186,7 +186,6 @@ def lsb(str,image_path):
                 image[location[index_in_pixels + 1][0]][location[index_in_pixels][1]] = list_of_three_pixels[1]
                 image[location[index_in_pixels + 2][0]][location[index_in_pixels][1]] = list_of_three_pixels[2]
                 break
-            f=False
             if toid(str[j])//10==0 :
 
                 list_of_three_pixels=Decomposing_a_number(toid(str[j]), x, [0, 1])
@@ -196,6 +195,7 @@ def lsb(str,image_path):
                 if len(list_of_three_pixels) == 1:
                     list_of_three_pixels.append(x[1])
                 list_of_three_pixels.append(x[2])
+            #שינוי הפיקסלים בתמונה
             image[location[index_in_pixels][0]][location[index_in_pixels][1]] = list_of_three_pixels[0]
             image[location[index_in_pixels+1][0]][location[index_in_pixels][1]] = list_of_three_pixels[1]
             image[location[index_in_pixels+2][0]][location[index_in_pixels][1]] = list_of_three_pixels[2]
@@ -207,11 +207,10 @@ def lsb(str,image_path):
         i+=1
     new_image = create_image_from_pixels(pix, location, image.shape)
     cv2.imwrite("modified_image.png", new_image)
-    n=cv2.imread("modified_image.png")
-    print(n.shape)
 
 
-lsb("הקוד עובד",image_path)
+msb("הקוד עובד", image_path)
+
 
 
 
