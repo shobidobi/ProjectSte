@@ -29,6 +29,39 @@ def extract_pixels(image_path):
 
     return pixels.tolist(), locations
 
+def process_specific_pixels(image_path, start_pixel, end_pixel):
+    """
+
+    :param image_path: The path to the image
+    :param start_pixel: index of the starting
+    :param end_pixel: index of the ending
+    :return: list of pixels in the image are represented in RGB with locations
+    """
+    # קריאת התמונה באמצעות OpenCV
+    image = cv2.imread(image_path)
+
+    # יישור התמונה לרשימת פיקסלים
+    pixels = image.reshape((-1, 3))
+
+    # רשימה ריקה לאחסון הפיקסלים
+    processed_pixels = []
+
+    # רשימה ריקה לאחסון המיקומים של הפיקסלים
+    pixel_positions = []
+
+    # עבודה עם פיקסלים מסוימים בטווח שניתן
+    for i in range(start_pixel, end_pixel + 1):
+        pixel = pixels[i]
+
+        # הוספת הפיקסל לרשימה
+        processed_pixels.append(pixel)
+
+        # חישוב המיקום של הפיקסל בתמונה והוספתו לרשימה
+        position = (i // image.shape[1], i % image.shape[1])
+        pixel_positions.append(position)
+
+    return processed_pixels, pixel_positions
+
 def toid(str):
     """
     :param str: A character to check an ID in the database
@@ -164,7 +197,6 @@ def pvd(str,image_path):
             image[location[index_in_pixels +1][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][1]
             image[location[index_in_pixels + 2][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][2]
             index_in_pixels += 3
-            #------------------------------------------------------
             list_of_six_pixels.clear()
             lis.clear()
             j+=1

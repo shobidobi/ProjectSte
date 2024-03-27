@@ -1,18 +1,93 @@
 import cv2
-import numpy as np
 from Entity.Characthers import characther
 from Entity.e import getSession
-
-image_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\redD.png'
+image_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\modified_image.png'
 Session = getSession()
 session = Session()
-SOF="Ω"
 
+def binary_representation(number):
+    if number == 0:
+        return [0]
+    bits = []
+    while number > 0:
+        bits.append(number % 2)
+        number //= 2
+    i=8-len(bits)
+    if i>0:
+        for i in range(i):
+            bits.append(0)
+    return bits[::-1]
+def decode(image_path):
+    image = cv2.imread(image_path)
+
+    # יישור התמונה לרשימת פיקסלים
+    pixels, pixel_locations = extract_pixels(image_path)
+    id=[0,0,0]
+    t=[0,0,0,0]
+    mask=[8,4,2,1]
+    j=2
+    i=1
+    str_ret= ''
+    l=0
+    while l<len(pixel_locations):
+        pixel=image[pixel_locations[l][1]][pixel_locations[l][0]]
+        t[3]=binary_representation(pixel[2])[1]
+        t[2]=binary_representation(pixel[2])[0]
+        t[1]=binary_representation(pixel[1])[1]
+        t[0]=binary_representation(pixel[1])[0]
+        id[j]=t[3]*mask[3]+t[2]*mask[2]+t[1]*mask[1]+t[0]*mask[0]
+        j-=1
+        if binary_representation(pixel[0])[1]==0 and binary_representation(pixel[0])[0]==0:
+
+            z = list_to_number(id)
+            str_ret += tochar(z)
+            return str_ret
+        if binary_representation(pixel[0])[1]==0 and binary_representation(pixel[0])[0]==1:
+            z = list_to_number(id)
+            str_ret += tochar(z)
+            tos=0
+            if z<100:
+                tos+=1
+                if z<10:
+                    tos+=1
+            id=[0,0,0]
+            j = 2
+            t = [0, 0, 0, 0]
+            i+=1+tos
+            l+=1+tos
+            continue
+
+        if (i)%3==0:
+            z=list_to_number(id)
+            str_ret+=tochar(z)
+            id=[0,0,0]
+            j=2
+            t=[0,0,0,0]
+        l+=1
+        i+=1
+    return ""
+
+def list_to_number(digits):
+    number = 0
+    for digit in digits:
+        number = number * 10 + digit
+    return number
+def extract_lowest_2_bits(image_path):
+    # קריאת התמונה באמצעות OpenCV
+    image = cv2.imread(image_path)
+
+    # יישור התמונה לרשימת פיקסלים
+    pixels = image.reshape(
+        (-1, 3))  # משנה את הצורה של התמונה ל־(-1, 3), כאשר -1 מציין ל-Python להתאים את המידות באופן אוטומטי
+    # לכמות הפיקסלים, ו־3 מציין את הגודל של כל פיקסל (RGB)
+
+    # יצירת רשימה חדשה שבה מופיעים רק שני הביטים הנמוכים של כל ערך RGB
+    lowest_2_bits_pixels = []
+    for pixel in pixels:
+        new_pixel = [value & 0b11000000 for value in pixel]
+        lowest_2_bits_pixels.append(new_pixel)
+    return lowest_2_bits_pixels
 def extract_pixels(image_path):
-    """
-    :param image_path:The path to the image
-    :return:The list of pixels in the image are represented in RGB
-    """
     # קריאת התמונה באמצעות OpenCV
     image = cv2.imread(image_path)
 
@@ -29,79 +104,56 @@ def extract_pixels(image_path):
 
     return pixels.tolist(), locations
 
-def toid(str):
-    """
-    :param str: A character to check an ID in the database
-    :return: id of the character
-    """
-    for char in str:
-        # מציאת התו במסד הנתונים
-        char_record = session.query(characther.id).filter_by(char=char).first()
-        if char_record:
-            print(f"ID of '{char}': {char_record[0]}")
-        else:
-            print(f"'{char}' not found in database")
-            return 500
-    return char_record[0]
+def tochar(id):
 
-def ret_pixel(id,p):
+    print(id)
+    n_id=int(id)
+    char_record = session.query(characther).filter_by(id=n_id).first()
+    if char_record is not None:
+        return char_record.get_char()
+    if char_record is None:
+        return " "
+
+def process_specific_pixels(image_path, start_pixel, end_pixel):
     """
 
-    :param digit: the digit to insert
-    :param p: list of pixel values
-    :return: the updated pixel
+    :param image_path: The path to the image
+    :param start_pixel: index of the starting
+    :param end_pixel: index of the ending
+    :return: list of pixels in the image are represented in RGB with locations
     """
-    delta=[0,0,0]
-    for i in range(3):
-        delta[i]=p[0][i]-p[1][i]
-        if id !=0:
-            digit=id%10
-            delta[i]-=digit
-            id=id//10
-    p[0][0]+=delta[0]
-    p[0][1]+=delta[1]
-    p[0][2]+=delta[2]
+    # קריאת התמונה באמצעות OpenCV
+    image = cv2.imread(image_path)
 
-    # binary_string = bin(digit)[2:]  # המרת המספר לבינארי והוצאת הספרה '0b' הראשונה
-    # binary_list = [int(digit) for digit in binary_string]  # המרת המחרוזת הבינארית לרשימה של ספרות בינאריות
-    # binary_list.reverse()
-    # c=4-len(binary_list)
-    # for i in range(0,c):
-    #     binary_list.append(0)
-    # L=[1,2,4,8]
-    # l=[0,0]
-    # l[0]=L[0]*binary_list[0]+L[1]*binary_list[1]#2
-    # l[1]=L[2]*binary_list[2]+L[3]*binary_list[3]#1
-    # m=[0,0,0]
-    # m[0]=binary_representation(p[0])
-    # m[1]=binary_representation(p[1])
-    # m[2]=binary_representation(p[2])
-    # m[2][7]=binary_list[0]
-    # m[2][6] = binary_list[1]
-    # m[1][7] = binary_list[2]
-    # m[1][6] = binary_list[3]
-    # m[0][7]=flag[0]
-    # m[0][6]=flag[1]
-    # p[0]=binary_to_integer(m[0])
-    # p[1]=binary_to_integer(m[1])
-    # p[2]=binary_to_integer(m[2])
-    return p
+    # יישור התמונה לרשימת פיקסלים
+    pixels = image.reshape((-1, 3))
+
+    # רשימה ריקה לאחסון הפיקסלים
+    processed_pixels = []
+
+    # רשימה ריקה לאחסון המיקומים של הפיקסלים
+    pixel_positions = []
+
+    # עבודה עם פיקסלים מסוימים בטווח שניתן
+    for i in range(start_pixel, end_pixel + 1):
+        pixel = pixels[i]
+
+        # הוספת הפיקסל לרשימה
+        processed_pixels.append(pixel)
+
+        # חישוב המיקום של הפיקסל בתמונה והוספתו לרשימה
+        position = (i // image.shape[1], i % image.shape[1])
+        pixel_positions.append(position)
+
+    return processed_pixels, pixel_positions
 
 
 def binary_to_integer(binary_list):
-    """
-    :param binary_list: A list of bits that represents a binary number
-    :return: The number in decimal representation
-    """
     result = 0
     for digit in binary_list:
         result = result * 2 + int(digit)
     return result
 def binary_representation(number):
-    """
-    :param number: A number in decimal representation
-    :return: The number in binary representation
-    """
     if number == 0:
         return [0]
     bits = []
@@ -113,84 +165,6 @@ def binary_representation(number):
         for i in range(i):
             bits.append(0)
     return bits[::-1]
-def Decomposing_a_number(id,p,flag):
-    """
-    :param id: The number identifier in the database
-    :param p: the list of three pixel from the image
-    :param flag: A flag to mark the current state
-    :return: The updated list of pixels after encryption
-    """
-    i=0
-    x=[]
-    while id>0:
-        digit = id % 10
-        if id//10==0:
-            print(p[i])
-            flag[0]=0
-            x.append(ret_pixel(digit, p))
-            print("-----"+str(x))
-            break
-        print(p[i])
-        x.append(ret_pixel(digit, p))
-        print(x)
-        id = int(id/10)
-        i+=1
-    return x
 
-def create_image_from_pixels(pixels, pixel_locations, image_shape):
-    """
-    :param pixels: The list of pixels
-    :param pixel_locations:The locations of the pixels in the image
-    :param image_shape: Image size
-    :return:The image with the updated pixels
-    """
-    # יצירת תמונה חדשה בגודל המתאים
-    new_image = np.zeros(image_shape, dtype=np.uint8)
+print(decode(image_path))
 
-    # השמה של ערכי הפיקסלים לתמונה החדשה בהתאם למיקומם
-    for pixel, location in zip(pixels, pixel_locations):
-        x, y = location
-        new_image[y, x] = pixel
-
-    return new_image
-
-def pvd(str,image_path):
-    """
-    The main encryption function at the end of the function saves the information in the copy
-    :param str:The string to encrypt
-    :param image_path:The path to the image where the information will be encrypted
-    """
-    str+=SOF
-    image = cv2.imread(image_path)
-    pix,location = extract_pixels(image_path)
-    index_in_pixels=0
-    x = []
-    j=i=0
-    l=len(str)
-    lis=[]
-    while i<len(pix) and j<len(str):
-        x.append(pix[i])
-        if (i+1)%3==0:
-            lis.append(x)
-        if (i+1)%6==0:
-            list_of_six_pixels=ret_pixel(toid(str[j]),lis)
-
-            #השמת ערכים
-            image[location[index_in_pixels][0]][location[index_in_pixels][1]] = list_of_six_pixels[0][0]
-            image[location[index_in_pixels+1][0]][location[index_in_pixels][1]] = list_of_six_pixels[0][1]
-            image[location[index_in_pixels+2][0]][location[index_in_pixels][1]] = list_of_six_pixels[0][2]
-            index_in_pixels+=3
-            image[location[index_in_pixels][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][0]
-            image[location[index_in_pixels +1][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][1]
-            image[location[index_in_pixels + 2][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][2]
-            index_in_pixels += 3
-            #------------------------------------------------------
-            list_of_six_pixels.clear()
-            lis.clear()
-            j+=1
-            l-=1
-            x.clear()
-        i+=2
-    new_image = create_image_from_pixels(pix, location, image.shape)
-    cv2.imwrite("modified_image.png", new_image)
-    n=cv2.imread("modified_image.png")

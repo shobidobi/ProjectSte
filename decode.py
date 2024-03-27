@@ -148,7 +148,4 @@ def binary_representation(number):
             bits.append(0)
     return bits[::-1]
 
-# דוגמה לשימוש
-number = 4
-binary = binary_representation(number)
-print(binary)  # ידפיס: [1, 0, 1, 0, 1, 0]
+
