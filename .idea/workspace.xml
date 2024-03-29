@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df1fb025-e2b4-47d0-afdf-95930b3d5fc8" name="Changes" comment="first commit">
+      <change afterPath="$PROJECT_DIR$/SendEmail.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Controller_File.py" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controller_File.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MDECODE.py" beforeDir="false" afterPath="$PROJECT_DIR$/MDECODE.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MSBencode.py" beforeDir="false" afterPath="$PROJECT_DIR$/MSBencode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Audio/LSBDncodedA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Audio/LSBDncodedA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Audio/LSBEncodedA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Audio/LSBEncodedA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Audio/MSBDecodedA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Audio/MSBDecodedA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Audio/MSBEecodedA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Audio/MSBEecodedA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Image/LSBDecoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/LSBDecoded.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Image/LSBEncode.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/LSBEncode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Image/MSBDecoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/MSBDecoded.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Image/MSBEncoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/MSBEncoded.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stenography/Image/PVDEncoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/PVDEncoded.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/check.py" beforeDir="false" afterPath="$PROJECT_DIR$/check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decode.py" beforeDir="false" afterPath="$PROJECT_DIR$/decode.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +70,7 @@
     "Python.MSBencode.executor": "Run",
     "Python.PVDDecoded.executor": "Run",
     "Python.PVDEncoded.executor": "Run",
+    "Python.SendEmail.executor": "Run",
     "Python.T.executor": "Run",
     "Python.check.executor": "Debug",
     "Python.decode.executor": "Run",
@@ -293,7 +281,9 @@
       <workItem from="1711303326991" duration="1428000" />
       <workItem from="1711352779275" duration="13616000" />
       <workItem from="1711438319270" duration="8527000" />
-      <workItem from="1711522751658" duration="18351000" />
+      <workItem from="1711522751658" duration="19239000" />
+      <workItem from="1711622280644" duration="2089000" />
+      <workItem from="1711712064612" duration="1471000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -327,7 +317,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711120924810</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="first commit">
+      <option name="closed" value="true" />
+      <created>1711554729780</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711554729780</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -362,7 +360,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Stenography/Audio/MSBEecodedA.py</url>
-          <line>101</line>
+          <line>106</line>
           <option name="timeStamp" value="103" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -384,9 +382,9 @@
     <SUITE FILE_PATH="coverage/pythonProject1$main.coverage" NAME="main Coverage Results" MODIFIED="1711438439504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$MSBEncoded.coverage" NAME="MSBEncoded Coverage Results" MODIFIED="1710395424046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
     <SUITE FILE_PATH="coverage/pythonProject1$ConnectionDB.coverage" NAME="ConnectionDB Coverage Results" MODIFIED="1706872911093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DB" />
-    <SUITE FILE_PATH="coverage/pythonProject1$Characther.coverage" NAME="Characther Coverage Results" MODIFIED="1710437536551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Entity" />
+    <SUITE FILE_PATH="coverage/pythonProject1$MSBDecodedA.coverage" NAME="MSBDecodedA Coverage Results" MODIFIED="1711554670240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
     <SUITE FILE_PATH="coverage/pythonProject1$LSBDecoded.coverage" NAME="LSBDecoded Coverage Results" MODIFIED="1711369349351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
-    <SUITE FILE_PATH="coverage/pythonProject1$MSBDecodedA.coverage" NAME="MSBDecodedA Coverage Results" MODIFIED="1711554406473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
+    <SUITE FILE_PATH="coverage/pythonProject1$Characther.coverage" NAME="Characther Coverage Results" MODIFIED="1710437536551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Entity" />
     <SUITE FILE_PATH="coverage/pythonProject1$decode.coverage" NAME="decode Coverage Results" MODIFIED="1711223893990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$LMU.coverage" NAME="LMU Coverage Results" MODIFIED="1706375521333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$e.coverage" NAME="e Coverage Results" MODIFIED="1710437649812" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Entity" />
@@ -398,12 +396,13 @@
     <SUITE FILE_PATH="coverage/pythonProject1$MDECODE.coverage" NAME="MDECODE Coverage Results" MODIFIED="1711096236765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$MSBencode.coverage" NAME="MSBencode Coverage Results" MODIFIED="1711096232940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$Controller_File.coverage" NAME="Controller_File Coverage Results" MODIFIED="1711370686217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/API" />
-    <SUITE FILE_PATH="coverage/pythonProject1$MSBEecodedA.coverage" NAME="MSBEecodedA Coverage Results" MODIFIED="1711554403489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
+    <SUITE FILE_PATH="coverage/pythonProject1$MSBEecodedA.coverage" NAME="MSBEecodedA Coverage Results" MODIFIED="1711554667098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
     <SUITE FILE_PATH="coverage/pythonProject1$LSBEncode.coverage" NAME="LSBEncode Coverage Results" MODIFIED="1711543220058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
     <SUITE FILE_PATH="coverage/pythonProject1$PVDEncoded.coverage" NAME="PVDEncoded Coverage Results" MODIFIED="1711115505544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
     <SUITE FILE_PATH="coverage/pythonProject1$LSBEncodedA.coverage" NAME="LSBEncodedA Coverage Results" MODIFIED="1711553030932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
     <SUITE FILE_PATH="coverage/pythonProject1$Caracter.coverage" NAME="Caracter Coverage Results" MODIFIED="1710437108207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Entity" />
     <SUITE FILE_PATH="coverage/pythonProject1$reade.coverage" NAME="reade Coverage Results" MODIFIED="1706373514570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pythonProject1$SendEmail.coverage" NAME="SendEmail Coverage Results" MODIFIED="1711713328806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$FFT.coverage" NAME="FFT Coverage Results" MODIFIED="1706372164043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$Login.coverage" NAME="Login Coverage Results" MODIFIED="1709841608098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/API" />
     <SUITE FILE_PATH="coverage/pythonProject1$test.coverage" NAME="test Coverage Results" MODIFIED="1706375765407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
