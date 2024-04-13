@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, Blueprint
 from flask_cors import CORS
 import os
 import time
@@ -6,6 +6,7 @@ from Stenography.Image.LSBEncode import lsb
 from Stenography.Image.LSBDecoded import decode
 app = Flask(__name__)
 CORS(app)
+file_route = Blueprint('file_route', __name__)
 def encode(text,file):
 
     f=lsb(text,file)

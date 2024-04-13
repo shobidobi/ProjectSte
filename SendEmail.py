@@ -10,7 +10,8 @@ subject="Password change code"
 # Add SSL (layer of security)
 context = ssl.create_default_context()
 def send_email(email_receiver):
-    body = "Hi here is the code to change your password "+generate_four_digit_number()
+    id=generate_four_digit_number()
+    body = "Hi here is the code to change your key "+id
     em = EmailMessage()
     em['From'] = email_sender
     em['To'] = email_receiver
@@ -19,6 +20,7 @@ def send_email(email_receiver):
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
+        return id
 
 # Log in and send the email
 

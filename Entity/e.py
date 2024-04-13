@@ -29,7 +29,7 @@ def getSession():
 ###########################################################
 
 # app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/login'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:key@localhost/login'
 # db.init_app(app)
 #
 # if __name__ == "__main__":

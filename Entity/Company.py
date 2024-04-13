@@ -1,14 +1,18 @@
-from Entity.e import db
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:key@localhost:5432/login'
+db = SQLAlchemy(app)
 
+# הגדרת המודל Company
 class Company(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False, unique=True)
-    company_name = db.Column(db.String(50), nullable=False)
-    def __init__(self, company_name):
+    id = db.Column(db.Integer, primary_key=True)
+    company_name = db.Column(db.String(50))
+    code = db.Column(db.LargeBinary)
+    def __init__(self, company_name, code):
         self.company_name = company_name
-    def get_company_name(self):
-        return self.company_name
-    def set_company_name(self, company_name):
-        self.company_name = company_name
-    def get_id(self):
-        return self.id
+        self.code = code
+
+
+

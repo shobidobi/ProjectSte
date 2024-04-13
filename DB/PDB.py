@@ -1,5 +1,5 @@
 postgresql={'pguser':'postgres',
-            'pgpasswd':'password',
+            'pgpasswd':'key',
             'pghost':'localhost',
             "port":5432,
             'pgdb':"login"
