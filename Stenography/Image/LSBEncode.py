@@ -99,9 +99,8 @@ def ret_pixel(digit,p,flag):
     l[0]=L[0]*binary_list[0]+L[1]*binary_list[1]#2
     l[1]=L[2]*binary_list[2]+L[3]*binary_list[3]#1
     m=[0,0,0]
-    m[0]=binary_representation(p[0])
-    m[1]=binary_representation(p[1])
-    m[2]=binary_representation(p[2])
+    for i in range(0,3):
+        m[i] = binary_representation(p[i])
     m[2][7]=binary_list[0]
     m[2][6] = binary_list[1]
     m[1][7] = binary_list[2]
@@ -253,6 +252,3 @@ def lsb(str,image_path):
     mod_path="C:\\Users\\ariel\PycharmProjects\pythonProject1\image_c\modified_image"+"."+type_file
     print(mod_path)
     cv2.imwrite(mod_path,new_image)
-
-
-#lsb("אריאל","C:\\Users\\ariel\PycharmProjects\pythonProject1\image_c\\20200628_125708.jpg")

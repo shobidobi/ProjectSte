@@ -5,6 +5,8 @@ from Entity.User import Users
 from Entity.e import getSession
 from flask_cors import CORS
 
+from ViewObject.User import UserViewObject
+
 log = ["Login Successful",  # 0
        "User does not exist",  # 1
        "One of the details is incorrect",  # 2
@@ -31,6 +33,11 @@ def check_user_info(username, password):
                 EntityPasswordsTable.date_c.desc()).first()
             if latest_password and latest_password.password == password:
                 #print(log[0] + ":" + user.get_username())
+                user_view_object.set_user_id(user.get_id())
+                user_view_object.set_username(user.get_username())
+                print(user.get_id_company())
+                user_view_object.set_company_number(user.get_id_company())
+                user_view_object.set_access_key(25445)
 
                 return log[0] + ":" + user.get_username()
 
@@ -39,13 +46,14 @@ def check_user_info(username, password):
         print("An error occurred:", str(e))
         return log[3]
 
+user_view_object = UserViewObject('JohnDoe', 123456, 'abc123', '789')
 
 @socketio.on('login')
 def handle_login(data):
     username = data.get('username')
     password = data.get('password')
     result = check_user_info(username, password)
-    emit('login_response', {'message': result})
+    emit('login_response', {'message': result,"user_view":user_view_object.toJSON()})
 
 
 
