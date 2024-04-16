@@ -1,5 +1,6 @@
 import random
 from decrypt import decrypt_Text_Rsa
+import json
 
 def gcd_extended(a, b):
     if a == 0:
@@ -53,6 +54,12 @@ def get_random_prime_in_range(start, end):
 
     return random_prime
 
+def createKeys():
+    num_one = get_random_prime_in_range(100000, 1000000000)
+    num_two = get_random_prime_in_range(100000, 1000000000)
+    n = (num_one) * (num_two)
+    mult = (num_one - 1) * (num_two - 1)
+    return find_numbers_with_modulo_one(mult),n
 
 num_one = get_random_prime_in_range(10000000, 1000000000000)
 num_two = get_random_prime_in_range(1000, 1000000000000)
@@ -70,15 +77,8 @@ def encrypt_Text_Rsa(plaintext):
         cypher_text.append(pow(ord(i), keys[0], n))
     return cypher_text
 
-def createKeys():
-    num_one = get_random_prime_in_range(100000, 1000000000)
-    num_two = get_random_prime_in_range(100000, 1000000000)
-    n = (num_one) * (num_two)
-    mult = (num_one - 1) * (num_two - 1)
-    return find_numbers_with_modulo_one(mult),n
-
-import json
-
+def encrypt_Json_Rsa(data, key):
+    return bytes([char ^ key for char in data])
 
 
 
@@ -86,29 +86,11 @@ from Entity.e import getSession
 
 Session = getSession()
 session = Session()
-def encrypt_Json_Rsa(json_file_path, public_key, n):
-    # קריאת נתוני הקובץ JSON
-    with open(json_file_path, 'r') as f:
-        data = json.load(f)
 
-    # הצפנת הנתונים בקובץ JSON
-    encrypted_data = []
-    for key, value in data.items():
-        if isinstance(value, str):  # השוואה בין סוגי הנתונים
-            encrypted_value = [pow(ord(char), public_key[0], n) for char in value]
-            encrypted_data.append({key: encrypted_value})
-        else:
-            encrypted_data.append({key: value})  # נתון לא מסוג מחרוזת, אין להצפין
-
-    # שמירת הנתונים המוצפנים בקובץ חדש
-    encrypted_json_file_path = 'encrypted_' + json_file_path
-    with open(encrypted_json_file_path, 'w') as f:
-        json.dump(encrypted_data, f)
 
 # יצירת המפתחות
 keys, n = createKeys()
 
-import json
 
 
 
@@ -257,20 +239,6 @@ encrypt_Text_Rsa(plaintext)
 # plaintext = "אריאל"
 e,n,keys=encrypt_Text_Rsa(plaintext)
 print(decrypt_Text_Rsa(e,keys[1],n))
-from flask import Flask, request, jsonify, current_app
 
-#
-#
-# # נגדיר נתיב עבור הבקשה לקבלת מפתח ציבורי
-# @app.route('/get_public_key', methods=['GET'])
-# def get_public_key():
-#     # קבלת הפרמטר מהבקשה
-#     client_public_key = request.args.get('public_key')
-#     keys=createKeys()
-#     # נבצע כאן פעולות נוספות לאימות ועיבוד המפתח לפי הצורך
-#     server_public_key=keys[0]
-#     # שליחת המפתח הציבורי של השרת בחזרה ללקוח
-#     return jsonify({'server_public_key': server_public_key})
-#
 
 

@@ -1,4 +1,4 @@
-from Entity.e import db,getSession
+from Entity.e import db
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False, unique=True)
     user_name = db.Column(db.String(50), nullable=False)

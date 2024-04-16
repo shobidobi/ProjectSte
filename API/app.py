@@ -1,16 +1,20 @@
-from flask import Flask, request, jsonify
+from flask import Flask
+from flask_socketio import SocketIO
 from flask_cors import CORS
-
-from API import ForgotPassword,SignUp,Login,Controller_File
+from Login import login_route
+from SignUp import signup_route
+from ForgotPassword import forgot_password_route
+from Controller_File import file_route
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+app.config['SECRET_KEY'] = 'your_secret_key'
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
-app.register_blueprint(ForgotPassword.forgot_password_route)
-app.register_blueprint(SignUp.signup_route)
-app.register_blueprint(Login.login_route)
-app.register_blueprint(Controller_File.file_route)
-
+app.register_blueprint(login_route)
+app.register_blueprint(signup_route)
+app.register_blueprint(forgot_password_route)
+app.register_blueprint(file_route)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True, use_reloader=False, allow_unsafe_werkzeug=True)

@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, Blueprint
+from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
 from Entity.Company import Company
@@ -19,10 +20,11 @@ Sign = [
 
 app = Flask(__name__)
 CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 signup_route = Blueprint('signup_route', __name__)
 
-
 def check_register(_username, _password, _email, _company_id):
+    print(_username, _password, _email, _company_id)
     try:
         # Create session
         Session = getSession()
@@ -65,17 +67,15 @@ def check_register(_username, _password, _email, _company_id):
         print("An error occurred:", str(e))
         return Sign[6]
 
-
-@signup_route.route('/api/signup', methods=['POST'])
-def signup():
-    data = request.get_json()
+@socketio.on('signup')
+def handle_signup(data):
     username = data.get('username')
-    password = data.get('key')
+    password = data.get('password')
     email = data.get('email')
     company_id = data.get('company')
-    print(company_id)
-    return jsonify({'success': True, 'message': check_register(username, password, email, company_id)})
-
+    result = check_register(username, password, email, company_id)
+    emit('signup_response', {'message': result})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
+
