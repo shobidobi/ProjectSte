@@ -11,8 +11,7 @@ from Stenography.Audio.LSBDncodedA import decode
 from Rsa.decrypt import decrypt_Text_Rsa
 
 import PIL
-app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
+from sock_io import socketio
 
 def encode_s(text, file):
     f = lsb(text, file)
@@ -93,6 +92,3 @@ def upload_file_d(data):
 
     # Delete the file after processing
     delete_file(file_path)
-
-if __name__ == "__main__":
-    socketio.run(app, debug=True, use_reloader=False, allow_unsafe_werkzeug=True)

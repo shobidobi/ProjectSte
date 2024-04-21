@@ -41,7 +41,7 @@ def toid(id):
         return " "
 
 
-def decode():
+def decode(audio):
     audio = wave.open("sampleStego.wav", mode='rb')
     frame_bytes = bytearray(list(audio.readframes(audio.getnframes())))
     id = [0, 0, 0]
@@ -103,4 +103,4 @@ def decode():
         l += 3
         i += 1
     return ""
-print(decode())
+print(decode(''))

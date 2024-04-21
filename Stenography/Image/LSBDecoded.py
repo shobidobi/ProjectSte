@@ -40,14 +40,15 @@ def get_file_type(file_path):
         file_type = 'Unknown'
 
     return file_type
-def decode(image_path):
+def decode(image_path,range_pix):
     type_file = get_file_type(image_path)
     mod_path = "C:\\Users\\ariel\PycharmProjects\pythonProject1\image_c\modified_image" + "." + type_file
     image_path=mod_path
     image = cv2.imread(image_path)
 
     # יישור התמונה לרשימת פיקסלים
-    pixels, pixel_locations = extract_pixels(image_path)
+    #pixels, pixel_locations = extract_pixels(image_path)
+    pixels, pixel_locations =process_specific_pixels(image_path,range_pix[0],range_pix[1])
     id=[0,0,0]
     t=[0,0,0,0]
     mask=[8,4,2,1]
@@ -205,6 +206,5 @@ def binary_representation(number):
         for i in range(i):
             bits.append(0)
     return bits[::-1]
-
-
+#print(decode(r"C:\Users\ariel\PycharmProjects\pythonProject1\image_c\modified_image.png",[50,80]))
 #decode("C:\\Users\\ariel\PycharmProjects\pythonProject1\image_c\\modified_image.jpg")

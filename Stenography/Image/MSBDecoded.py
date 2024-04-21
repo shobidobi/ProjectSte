@@ -1,7 +1,9 @@
 import cv2
 from Entity.Characthers import characther
 from Entity.e import getSession
-image_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\modified_image.png'
+image_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c\modified_image.png'
+#image_path = r'C:\Users\ariel\Downloads\file (3).png'
+
 Session = getSession()
 session = Session()
 
@@ -17,11 +19,11 @@ def binary_representation(number):
         for i in range(i):
             bits.append(0)
     return bits[::-1]
-def decode(image_path):
+def decode(image_path,range_pixel):
     image = cv2.imread(image_path)
-
+    print(range_pixel)
     # יישור התמונה לרשימת פיקסלים
-    pixels, pixel_locations = extract_pixels(image_path)
+    pixels, pixel_locations = process_specific_pixels(image_path,range_pixel[0],range_pixel[1])
     id=[0,0,0]
     t=[0,0,0,0]
     mask=[8,4,2,1]
@@ -166,5 +168,5 @@ def binary_representation(number):
             bits.append(0)
     return bits[::-1]
 
-print(decode(image_path))
+#print(decode(image_path,[50,80]))
 

@@ -4,7 +4,7 @@ from Entity.PasswordsT import Passwords as EntityPasswordsTable
 from Entity.User import Users
 from Entity.e import getSession
 from flask_cors import CORS
-
+from Rsa.encrypt import createKeys
 from ViewObject.User import UserViewObject
 
 log = ["Login Successful",  # 0
@@ -16,7 +16,13 @@ app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 CORS(app)
 login_route = Blueprint('login_route', __name__)
-
+def calculate_hash(text):
+    hash_value = ''
+    for char in text:
+        # חישוב ה-ASCII code של התו וכפלו ב-5
+        ascii_code = ord(char) * 5
+        hash_value += str(ascii_code)
+    return hash_value
 def check_user_info(username, password):
     print("---------------------------------------------")
     try:
@@ -31,14 +37,16 @@ def check_user_info(username, password):
         if user:
             latest_password = session.query(EntityPasswordsTable).filter_by(user_id=user.get_id()).order_by(
                 EntityPasswordsTable.date_c.desc()).first()
-            if latest_password and latest_password.password == password:
+            if latest_password and calculate_hash(latest_password.password) == password:
                 #print(log[0] + ":" + user.get_username())
+                print("Logged in successfully")
                 user_view_object.set_user_id(user.get_id())
                 user_view_object.set_username(user.get_username())
                 print(user.get_id_company())
                 user_view_object.set_company_number(user.get_id_company())
-                user_view_object.set_access_key(25445)
 
+                user_view_object.set_access_key(createKeys(user.get_id()))
+                print(user_view_object.get_access_key())
                 return log[0] + ":" + user.get_username()
 
         return log[2]
@@ -54,7 +62,6 @@ def handle_login(data):
     password = data.get('password')
     result = check_user_info(username, password)
     emit('login_response', {'message': result,"user_view":user_view_object.toJSON()})
-
 
 
 

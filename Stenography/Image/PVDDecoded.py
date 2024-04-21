@@ -118,8 +118,40 @@ def create_image_from_pixels(pixels, pixel_locations, image_shape):
         new_image[y, x] = pixel
 
     return new_image
+def process_specific_pixels(image_path, start_pixel, end_pixel):
+    """
 
-def pvd(str,image_path):
+    :param image_path: The path to the image
+    :param start_pixel: index of the starting
+    :param end_pixel: index of the ending
+    :return: list of pixels in the image are represented in RGB with locations
+    """
+    # קריאת התמונה באמצעות OpenCV
+    image = cv2.imread(image_path)
+
+    # יישור התמונה לרשימת פיקסלים
+    pixels = image.reshape((-1, 3))
+
+    # רשימה ריקה לאחסון הפיקסלים
+    processed_pixels = []
+
+    # רשימה ריקה לאחסון המיקומים של הפיקסלים
+    pixel_positions = []
+
+    # עבודה עם פיקסלים מסוימים בטווח שניתן
+    for i in range(start_pixel, end_pixel + 1):
+        pixel = pixels[i]
+
+        # הוספת הפיקסל לרשימה
+        processed_pixels.append(pixel)
+
+        # חישוב המיקום של הפיקסל בתמונה והוספתו לרשימה
+        position = (i // image.shape[1], i % image.shape[1])
+        pixel_positions.append(position)
+
+    return processed_pixels, pixel_positions
+
+def pvd(image_path):
     """
     The main encryption function at the end of the function saves the information in the copy
     :param str:The string to encrypt
@@ -127,6 +159,7 @@ def pvd(str,image_path):
     """
     str=""
     pix,location = extract_pixels(image_path)
+    #pix, location=process_specific_pixels(image_path,50,110)
     i=0
     lis_of_six=[]
     while i<len(pix)-1:
@@ -134,11 +167,13 @@ def pvd(str,image_path):
         i+=1
         lis_of_six.append(pix[i])
         c=tochar(ret_id(lis_of_six))
+
         if c== "Ω":
             return str
         str+=tochar(ret_id(lis_of_six))
         lis_of_six.clear()
         i+=1
 
-image_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\Stenography\Image\modified_image.png'
-print(pvd("aaa",image_path))
+
+image_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c\modified_image.png'
+print(pvd(image_path))

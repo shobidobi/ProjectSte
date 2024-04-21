@@ -197,14 +197,15 @@ def get_file_type(file_path):
         file_type = 'Unknown'
 
     return file_type
-def lsb(str,image_path):
+def lsb(str,image_path,range_pixel):
     """
     The main encryption function at the end of the function saves the information in the copy
     :param str:The string to encrypt
     :param image_path:The path to the image where the information will be encrypted
     """
     image = cv2.imread(image_path)
-    pix,location = extract_pixels(image_path)
+    # pix,location = extract_pixels(image_path)
+    pix,location=process_specific_pixels(image_path,range_pixel[0],range_pixel[1])
     index_in_pixels=0
     x = []
     j=i=0
@@ -252,3 +253,5 @@ def lsb(str,image_path):
     mod_path="C:\\Users\\ariel\PycharmProjects\pythonProject1\image_c\modified_image"+"."+type_file
     print(mod_path)
     cv2.imwrite(mod_path,new_image)
+
+#lsb("ariel",r"C:\Users\ariel\PycharmProjects\pythonProject1\redD.png",[50,80])

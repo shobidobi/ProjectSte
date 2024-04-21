@@ -4,6 +4,7 @@ class Users(db.Model):
     user_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
     id_company = db.Column(db.Integer, db.ForeignKey('company.id'))
+    is_change_company_code=db.Column(db.Boolean, default=False)
     def __init__(self, user_name, email, id_company):
         self.user_name = user_name
         self.email = email
@@ -28,3 +29,9 @@ class Users(db.Model):
         return self.id_company
     def get_id(self):
         return self.id
+
+    def set_is_change_company_code(self, new_is_change_company_code):
+        self.is_change_company_code=new_is_change_company_code
+
+    def get_is_change_company_code(self):
+        return self.is_change_company_code

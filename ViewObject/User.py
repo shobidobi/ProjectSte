@@ -1,16 +1,18 @@
 class UserViewObject:
-    def __init__(self, username, user_id, access_key, company_number):
+    def __init__(self, username, user_id, access_key, company_number,is_change_code=False):
         self.username = username
         self.user_id = user_id
         self.access_key = access_key
         self.company_number = company_number
+        self.is_change_code = is_change_code
 
     def to_dict(self):
         return {
             'username': self.username,
             'user_id': self.user_id,
             'access_key': self.access_key,
-            'company_number': self.company_number
+            'company_number': self.company_number,
+            'is_change_code': self.is_change_code
         }
 
     @classmethod
@@ -19,7 +21,8 @@ class UserViewObject:
             data['username'],
             data['user_id'],
             data['access_key'],
-            data['company_number']
+            data['company_number'],
+            data['is_change_code']
         )
 
     def get_username(self):
@@ -46,14 +49,19 @@ class UserViewObject:
     def set_company_number(self, company_number):
         self.company_number = company_number
 
+    def set_is_change_code(self, is_change_code):
+        self.is_change_code = is_change_code
 
+    def get_is_change_code(self):
+        return self.is_change_code
 
     def toJSON(self):
         return {
             'username': self.username,
             'user_id': self.user_id,
             'access_key': self.access_key,
-            'company_number': self.company_number
+            'company_number': self.company_number,
+            'is_change_code': self.is_change_code
         }
 # דוגמה לשימוש במחלקה:
 # יצירת אובייקט מודל

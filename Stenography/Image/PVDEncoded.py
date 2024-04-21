@@ -1,3 +1,5 @@
+import os
+
 import cv2
 import numpy as np
 from Entity.Characthers import characther
@@ -151,7 +153,7 @@ def Decomposing_a_number(id,p,flag):
         i+=1
     return x
 
-def create_image_from_pixels(pixels, pixel_locations, image_shape):
+def create_image_from_pixels(pixels, pixel_locations, image_shape,image_path):
     """
     :param pixels: The list of pixels
     :param pixel_locations:The locations of the pixels in the image
@@ -160,50 +162,93 @@ def create_image_from_pixels(pixels, pixel_locations, image_shape):
     """
     # יצירת תמונה חדשה בגודל המתאים
     new_image = np.zeros(image_shape, dtype=np.uint8)
-
+    pix, loc = extract_pixels(image_path)
     # השמה של ערכי הפיקסלים לתמונה החדשה בהתאם למיקומם
+    for pixel, location in zip(pix, loc):
+        x, y = location
+        new_image[y, x] = pixel
     for pixel, location in zip(pixels, pixel_locations):
         x, y = location
         new_image[y, x] = pixel
-
     return new_image
+def get_file_type(file_path):
+    # משיגים את סיומת הקובץ
+    file_extension = os.path.splitext(file_path)[1]
 
-def pvd(str,image_path):
+    # מסודרים את הסוג של הקובץ לפי הסיומת
+    if file_extension == '':
+        file_type = 'No extension'
+    elif file_extension == '.txt':
+        file_type = 'txt'
+    elif  file_extension == '.jpeg':
+        file_type = 'jpeg'
+    elif file_extension == '.jpg':
+        file_type = 'jpg'
+    elif file_extension == '.png':
+        file_type = 'png'
+    elif file_extension == '.pdf':
+        file_type = 'pdf'
+    else:
+        file_type = 'Unknown'
+
+    return file_type
+
+
+import cv2
+
+
+def pvd(str, image_path, range_pixel):
     """
-    The main encryption function at the end of the function saves the information in the copy
-    :param str:The string to encrypt
-    :param image_path:The path to the image where the information will be encrypted
+    The main encryption function. Saves the information in a modified image.
+
+    :param str: The string to encrypt.
+    :param image_path: The path to the image where the information will be encrypted.
+    :param range_pixel: Range of pixels to use for encryption.
     """
-    str+=SOF
+
+    str += SOF
+
+    # Read the image
     image = cv2.imread(image_path)
-    pix,location = extract_pixels(image_path)
-    index_in_pixels=0
-    x = []
-    j=i=0
-    l=len(str)
-    lis=[]
-    while i<len(pix) and j<len(str):
-        x.append(pix[i])
-        if (i+1)%2==0:
-            lis=x
-            list_of_six_pixels=ret_pixel(toid(str[j]),lis)
 
-            #השמת ערכים
+    # Extract pixels
+    pix, location = extract_pixels(image_path)
+
+    index_in_pixels = 0
+    x = []
+    j = i = 0
+    l = len(str)
+    lis = []
+
+    while i < len(pix) and j < len(str):
+        x.append(pix[i])
+        if (i + 1) % 2 == 0:
+            lis = x
+            list_of_six_pixels = ret_pixel(toid(str[j]), lis)
+
+            # Assign values
             image[location[index_in_pixels][0]][location[index_in_pixels][1]] = list_of_six_pixels[0][0]
-            image[location[index_in_pixels+1][0]][location[index_in_pixels][1]] = list_of_six_pixels[0][1]
-            image[location[index_in_pixels+2][0]][location[index_in_pixels][1]] = list_of_six_pixels[0][2]
-            index_in_pixels+=3
+            image[location[index_in_pixels + 1][0]][location[index_in_pixels][1]] = list_of_six_pixels[0][1]
+            image[location[index_in_pixels + 2][0]][location[index_in_pixels][1]] = list_of_six_pixels[0][2]
+            index_in_pixels += 3
             image[location[index_in_pixels][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][0]
-            image[location[index_in_pixels +1][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][1]
+            image[location[index_in_pixels + 1][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][1]
             image[location[index_in_pixels + 2][0]][location[index_in_pixels][1]] = list_of_six_pixels[1][2]
             index_in_pixels += 3
+
             list_of_six_pixels.clear()
             lis.clear()
-            j+=1
-            l-=1
+            j += 1
+            l -= 1
             x.clear()
-        i+=1
-    new_image = create_image_from_pixels(pix, location, image.shape)
-    cv2.imwrite("modified_image.png", new_image)
-    n=cv2.imread("modified_image.png")
-pvd("הקוד עובד",image_path)
+        i += 1
+
+    print("sof steno")
+    new_image = create_image_from_pixels(pix, location, image.shape, image_path)
+    type_file = get_file_type(image_path)
+    print(type_file)
+    mod_path = "C:\\Users\\ariel\PycharmProjects\pythonProject1\image_c\modified_image" + "." + type_file
+    print(mod_path)
+    cv2.imwrite(mod_path, new_image)
+
+pvd("vbbcvbc",image_path=r"C:\Users\ariel\PycharmProjects\pythonProject1\redD.png",range_pixel=[50,110])
