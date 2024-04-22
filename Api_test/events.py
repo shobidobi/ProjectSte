@@ -76,9 +76,9 @@ from Rsa.decrypt import decrypt_Text_Rsa
 import PIL
 from sock_io import socketio
 
-def encode_s(text, file):
-    f = lsb(text, file,[50,80])
-    print("the msg" + lsb_d(file,[50,80]))
+# def encode_s(text, file):
+#     f = lsb(text, file,[50,80])
+#     print("the msg" + lsb_d(file,[50,80]))
 
 
 def delete_file(file_path):
@@ -108,37 +108,147 @@ def get_file_type(file_path):
         file_type = 'Unknown'
 
     return file_type
+# @socketio.on('encode')
+# def upload_file(data):
+#     file_data = data['file']
+#     text_value = data['text']
+#     file_type = data['option']
+#     print(text_value)
+#     user_id = data['user_id']
+#     t_d = decrypt_Text_Rsa(text_value, user_id)
+#     # Define the filename
+#     filename = 'uploaded_file' + str(user_id) + '.png'
+#     #filename = 'uploaded_file' + str(user_id) + '.wav'
+#     # if file_type == 'audio':
+#     #     file_name ='uploaded_file'+str(user_id)+'.wav'
+#     print(file_data)
+#     file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c', filename)
+#     # Save the file to the desired location
+#     if file_type == 'image':
+#         file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c', filename)
+#     elif file_type == 'audio':
+#         print("---------")
+#     with open(file_path, 'wb') as f:
+#         f.write(file_data)
+#
+#     # Encode the text into the file
+#     #encode_s(t_d, file_path)
+#     x,algorit=switch_code(1, 'LSB', [50,80], 'image', 'encode', t_d,file_path)
+#     if algorit!='LSB' and file_type == 'image':
+#         file_path=r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c\modified_image.png'
+#     # Send the file back to the client
+#     with open(file_path, 'rb') as file:
+#         file_data = base64.b64encode(file.read()).decode('utf-8')
+#         emit('file_download', {'file': file_data})
+#
+#     # Emit a response back to the client
+#     emit('upload_response', {'message': 'File uploaded successfully'})
+#
+#     # Delete the file after processing
+#     delete_file(file_path)
+
+
 @socketio.on('encode')
 def upload_file(data):
-    file_data = data['file']
+    print("Uploading file...")
+    print("Received data:", data)
+    file_data = data['file'] # קבלת הנתונים בפורמט Uint8Array
     text_value = data['text']
     file_type = data['option']
-    print(text_value)
     user_id = data['user_id']
-    t_d=decrypt_Text_Rsa(text_value,user_id)
+    t_d = decrypt_Text_Rsa(text_value, user_id)
+
+    # המרת הנתונים ל-Bytes
+    file_bytes = bytes(file_data)
+
     # Define the filename
-    filename = 'uploaded_file'+str(user_id)+'.png'
-    print(file_data)
-    # Save the file to the desired location
-    file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c', filename)
+    if file_type == 'audio':
+        filename = f'uploaded_file{user_id}.wav'
+        file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c', filename)
+    elif file_type == 'image':
+        filename = f'uploaded_file{user_id}.png'
+        file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c', filename)
+    else:
+        emit('upload_response', {'message': 'Unsupported file type'})
+        return
+
     with open(file_path, 'wb') as f:
-        f.write(file_data)
+        f.write(file_bytes)
 
     # Encode the text into the file
-    #encode_s(t_d, file_path)
-    x,algorit=switch_code(1, 'PVD', [50,80], file_type, 'encode', t_d,file_path)
-    if algorit!='LSB':
-        file_path=r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c\modified_image.png'
+    x, algorithm = switch_code(1, 'LSB', [50, 80], file_type, 'encode', t_d, file_path)
+    if algorithm != 'LSB' and file_type == 'image':
+        file_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c\modified_image.png'
+    if file_type=='audio':
+        file_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c\sampleStego.wav'
     # Send the file back to the client
     with open(file_path, 'rb') as file:
         file_data = base64.b64encode(file.read()).decode('utf-8')
-        emit('file_download', {'file': file_data})
+        emit('file_download', {'file': file_data}, binary=True)
 
     # Emit a response back to the client
     emit('upload_response', {'message': 'File uploaded successfully'})
 
     # Delete the file after processing
     delete_file(file_path)
+
+
+import os
+import base64
+
+
+@socketio.on('encode_audio')
+def upload_file(data):
+    print("מעלה קובץ...")
+    print("מקבל נתונים:", data)
+
+    # בדיקה אם סוג הקובץ הוא WAV
+    file_type = data.get('option')
+    if file_type != 'audio':
+        print('סוג קובץ לא נתמך')
+        emit('upload_response', {'message': 'סוג קובץ לא נתמך'})
+        return
+
+    file_data = data.get('file')  # נניח שזה מערך Uint8Array
+    text_value = data.get('text')
+    user_id = data.get('user_id')
+    t_d = decrypt_Text_Rsa(text_value, user_id)
+
+    # המרת הנתונים לבתים
+    file_bytes = bytes(file_data)
+
+    # הגדרת שם הקובץ והנתיב
+    filename = f'uploaded_file{user_id}.wav'
+    file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c', filename)
+
+    with open(file_path, 'wb') as f:
+        f.write(file_bytes)
+    print(f"קובץ נשמר ב: {file_path}")
+
+    # הצפנת הטקסט לקובץ
+    print("התחלת הצפנת הטקסט לקובץ")
+    try:
+        x, algorithm = switch_code(1, 'MSB', [50, 80], 'audio', 'encode', t_d, file_path)
+        print(f"השיטה הנבחרת להצפנה: {algorithm}")
+
+        file_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c\sampleStego.wav'
+
+        # שליחת הקובץ חזרה ללקוח
+        with open(file_path, 'rb') as file:
+            file_data = base64.b64encode(file.read()).decode('utf-8')
+            emit('file_download', {'file': file_data}, binary=True)
+            print("שליחת הקובץ חזרה ללקוח")
+
+        # שליחת תגובה ללקוח
+        emit('upload_response', {'message': 'קובץ הועלה בהצלחה'})
+        print("תגובה נשלחה ללקוח")
+
+        # מחיקת הקובץ לאחר העיבוד
+        delete_file(file_path)
+    except Exception as e:
+        print(f"שגיאה בעיבוד הקובץ: {e}")
+
+
 @socketio.on('decode')
 def upload_file_d(data):
     print("-------------------------------------------------------------------------")
@@ -146,14 +256,18 @@ def upload_file_d(data):
     user_id = data['user_id']
     file_type = data['option']
     # Define the filename
-    filename = 'uploaded_file'+str(user_id)+'.png'
+    filename = 'uploaded_file'+str(user_id)+'.wav'
+
     # Save the file to the desired location
-    file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c', filename)
+    if file_type=='image':
+        file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c', filename)
+    elif file_type=='audio':
+        file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c', filename)
     with open(file_path, 'wb') as f:
         f.write(file_data)
 
     # Encode the text into the file
-    message_d,A = switch_code(1, 'PVD', [50,80], file_type, 'decode','',file_path)
+    message_d,A = switch_code(1, 'MSB', [50,80], file_type, 'decode','',file_path)
     print(message_d)
     # Emit a response back to the client
     emit('decode_response', {'message': message_d})
@@ -161,9 +275,7 @@ def upload_file_d(data):
     # Delete the file after processing
     delete_file(file_path)
 
-from flask import Flask, request, jsonify, Blueprint
-from flask_socketio import SocketIO, emit
-from flask_cors import CORS
+
 
 from Entity.Company import Company
 from Entity.User import Users

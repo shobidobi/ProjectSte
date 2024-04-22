@@ -42,7 +42,9 @@ def toid(id):
 
 
 def decode(audio):
-    audio = wave.open("sampleStego.wav", mode='rb')
+    #audio = wave.open("sampleStego.wav", mode='rb')
+    #audio = wave.open(r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c\sampleStego.wav', mode='rb')
+    audio = wave.open(audio, mode='rb')
     frame_bytes = bytearray(list(audio.readframes(audio.getnframes())))
     id = [0, 0, 0]
     t = [0, 0, 0, 0]
@@ -51,10 +53,10 @@ def decode(audio):
     i = tmp = 1
     strs = ''
     l = 0
-    three_byte=[]
+    three_byte = []
     while l < len(frame_bytes):
         three_byte.clear()
-        for r in range(l,l+3):
+        for r in range(l, l + 3):
             three_byte.append(frame_bytes[r])
         t[3] = binary_representation(three_byte[2])[7]
         t[2] = binary_representation(three_byte[2])[6]
@@ -62,12 +64,17 @@ def decode(audio):
         t[0] = binary_representation(three_byte[1])[6]
         id[j] = t[3] * mask[3] + t[2] * mask[2] + t[1] * mask[1] + t[0] * mask[0]
         j -= 1
-        if binary_representation(three_byte[0])[7] == 0 and binary_representation(three_byte[0])[6] == 0:
+        if binary_representation(three_byte[0])[1] == 0 and binary_representation(three_byte[0])[0] == 0:
             z = list_to_number(id)
-            strs += toid(z)
-            return strs
-        if binary_representation(three_byte[0])[7] == 0 and binary_representation(three_byte[0])[6] == 1:
+            if z == 359:
+                return strs
+            #strs += toid(z)
+
+            # return strs
+        if binary_representation(three_byte[0])[1] == 0 and binary_representation(three_byte[0])[0] == 1:
             z = list_to_number(id)
+            # if z == 359:
+            #     return strs
             strs += toid(z)
             ttt = len(strs)
             tos = 0
@@ -79,15 +86,17 @@ def decode(audio):
             j = 2
             t = [0, 0, 0, 0]
             i += 1 + tos
-            l += 1+ tos
-            if 10<z<100:
-                l+=1
+            l += 1 + tos
+            if 10 < z < 100:
+                l += 1
 
             three_byte.clear()
             continue
 
         if (i) % 3 == 0:
             z = list_to_number(id)
+            if z == 359:
+                return strs
             strs += toid(z)
             tmp = 1
             id = [0, 0, 0]
@@ -97,4 +106,5 @@ def decode(audio):
         l += 3
         i += 1
     return ""
-print(decode("tfy"))
+
+#print(decode("tfy"))

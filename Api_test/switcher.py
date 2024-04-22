@@ -9,6 +9,7 @@ from Stenography.Audio.LSBDncodedA import decode as lsb_decode_a
 from Stenography.Audio.MSBEecodedA import encode as msb_encode_a
 from Stenography.Audio.MSBDecodedA import decode as msb_decode_a
 def switch_code(company_number,algorithm_type,pixel_range,file_type,mode,text,path):
+    print("enter switch")
     if algorithm_type=='LSB':
         if file_type=='image':
             if mode=='encode':
@@ -17,9 +18,10 @@ def switch_code(company_number,algorithm_type,pixel_range,file_type,mode,text,pa
                 return lsb_decoded(image_path=path,range_pix=[pixel_range[0],pixel_range[1]]),algorithm_type
         else:
             if mode=='encode':
+                print("bobgdfgbdhguh")
                 return lsb_encode_a(audio_file=path,message=text),algorithm_type
             else:
-                return lsb_decode_a(audio='')
+                return lsb_decode_a(audio=path),algorithm_type
     if algorithm_type=='MSB':
         if file_type=='image':
             if mode=='encode':
@@ -30,9 +32,9 @@ def switch_code(company_number,algorithm_type,pixel_range,file_type,mode,text,pa
                 return msb_decoded(image_path=path,range_pixel=[pixel_range[0],pixel_range[1]]),algorithm_type
         else:
             if mode=='encode':
-                return msb_encode_a(audio_file='',message=text),algorithm_type
+                return msb_encode_a(audio_file=path,message=text),algorithm_type
             else:
-                return msb_decode_a(audio=''),algorithm_type
+                return msb_decode_a(audio=path),algorithm_type
     if algorithm_type=='PVD':
         if file_type=='image':
             if mode=='encode':

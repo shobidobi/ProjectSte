@@ -110,7 +110,10 @@ def encode(audio_file,message):
 	frame_modified = bytes(frame_bytes)
 	for i in range(0,20):
 		print(frame_bytes[i])
-	newAudio =  wave.open('sampleStego.wav', 'wb')
+	# newAudio =  wave.open('sampleStego.wav', 'wb')
+	# newAudio.setparams(audio.getparams())
+	# newAudio.writeframes(frame_modified)
+	newAudio = wave.open(r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c\sampleStego.wav', 'wb')
 	newAudio.setparams(audio.getparams())
 	newAudio.writeframes(frame_modified)
 
@@ -137,9 +140,9 @@ def encode(audio_file,message):
 # 	decoded = string.split("###")[0]
 # 	print("Sucessfully decoded: "+decoded)
 # 	audio.close()
-audio_file_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c\0cdaa711-c15c-4dcb-bfe5-54e8e13fb8a2.wav'
-message = "aaaa"
-encode(audio_file_path, message)
+audio_file_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\Stenography\Audio\sampleStego.wav'
+message = "nvdsjvljnxn"
+#encode(audio_file_path, message)
 # decode()
 def list_to_number(digits):
     number = 0
