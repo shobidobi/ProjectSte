@@ -1,11 +1,7 @@
-from flask import Flask, Blueprint
-from flask_socketio import SocketIO, emit
-
+import json
+from sqlalchemy.exc import SQLAlchemyError
 from Api_test.switcher import switch_code
 from Entity.PasswordsT import Passwords as EntityPasswordsTable
-from Entity.User import Users
-from Entity.e import getSession
-from flask_cors import CORS
 from Rsa.encrypt import createKeys
 from ViewObject.User import UserViewObject
 from sock_io import socketio
@@ -44,7 +40,7 @@ def check_user_info(username, password):
                 user_view_object.set_company_number(user.get_id_company())
                 user_view_object.set_is_change_code(user.get_is_change_company_code())
                 print("is cjange?", user_view_object.get_is_change_code())
-                user_view_object.set_access_key(createKeys(user.get_id()))
+                user_view_object.set_access_key(createKeys(user.get_id(),'user'))
                 print(user_view_object.get_access_key())
                 return log[0] + ":" + user.get_username()
 
@@ -65,20 +61,8 @@ def handle_login(data):
 
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, emit
-import os
-import base64
-from Stenography.Image.LSBEncode import lsb
-from Stenography.Image.LSBDecoded import decode as lsb_d
-from Stenography.Audio.LSBEncodedA import encode
-from Stenography.Audio.LSBDncodedA import decode
-from Rsa.decrypt import decrypt_Text_Rsa
-
-import PIL
+from Rsa.decrypt import decrypt_Text_Rsa, decrypt_Text_Rsa_user
 from sock_io import socketio
-
-# def encode_s(text, file):
-#     f = lsb(text, file,[50,80])
-#     print("the msg" + lsb_d(file,[50,80]))
 
 
 def delete_file(file_path):
@@ -156,7 +140,7 @@ def upload_file(data):
     text_value = data['text']
     file_type = data['option']
     user_id = data['user_id']
-    t_d = decrypt_Text_Rsa(text_value, user_id)
+    t_d = decrypt_Text_Rsa_user(text_value, user_id)
 
     # המרת הנתונים ל-Bytes
     file_bytes = bytes(file_data)
@@ -176,7 +160,8 @@ def upload_file(data):
         f.write(file_bytes)
 
     # Encode the text into the file
-    x, algorithm = switch_code(1, 'LSB', [50, 80], file_type, 'encode', t_d, file_path)
+    #x, algorithm = switch_code(1, 'LSB', [50, 80], file_type, 'encode', t_d, file_path)
+    x, algorithm=decrypt_code(1, 'encode', file_path, t_d,file_type)
     if algorithm != 'LSB' and file_type == 'image':
         file_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c\modified_image.png'
     if file_type=='audio':
@@ -192,10 +177,8 @@ def upload_file(data):
     # Delete the file after processing
     delete_file(file_path)
 
-
 import os
 import base64
-
 
 @socketio.on('encode_audio')
 def upload_file(data):
@@ -212,7 +195,7 @@ def upload_file(data):
     file_data = data.get('file')  # נניח שזה מערך Uint8Array
     text_value = data.get('text')
     user_id = data.get('user_id')
-    t_d = decrypt_Text_Rsa(text_value, user_id)
+    t_d = decrypt_Text_Rsa_user(text_value, user_id)
 
     # המרת הנתונים לבתים
     file_bytes = bytes(file_data)
@@ -228,7 +211,8 @@ def upload_file(data):
     # הצפנת הטקסט לקובץ
     print("התחלת הצפנת הטקסט לקובץ")
     try:
-        x, algorithm = switch_code(1, 'MSB', [50, 80], 'audio', 'encode', t_d, file_path)
+        #x, algorithm = switch_code(1, 'MSB', [50, 80], 'audio', 'encode', t_d, file_path)
+        x, algorithm = decrypt_code(1, 'encode', file_path, t_d,file_type)
         print(f"השיטה הנבחרת להצפנה: {algorithm}")
 
         file_path = r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c\sampleStego.wav'
@@ -256,8 +240,10 @@ def upload_file_d(data):
     user_id = data['user_id']
     file_type = data['option']
     # Define the filename
-    filename = 'uploaded_file'+str(user_id)+'.wav'
-
+    if file_type == 'audio':
+        filename = 'uploaded_file'+str(user_id)+'.wav'
+    if file_type == 'image':
+        filename = 'uploaded_file' + str(user_id) + '.png'
     # Save the file to the desired location
     if file_type=='image':
         file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c', filename)
@@ -267,7 +253,8 @@ def upload_file_d(data):
         f.write(file_data)
 
     # Encode the text into the file
-    message_d,A = switch_code(1, 'MSB', [50,80], file_type, 'decode','',file_path)
+    #message_d,A = switch_code(1, 'MSB', [50,80], file_type, 'decode','',file_path)
+    message_d, A = decrypt_code(1,'decode',file_path,'',file_type)
     print(message_d)
     # Emit a response back to the client
     emit('decode_response', {'message': message_d})
@@ -349,4 +336,104 @@ def handle_signup(data):
     emit('signup_response', {'message': result})
 
 
+@socketio.on('get_key_company')
+def get_key_company(data):
+    company_id = data.get('company')
+    file_type = data.get('file_type')
+    p=createKeys(company_id,'company',file_type)
+    emit('response', {'key':p})
+@socketio.on('create_code')
+def handle_create_code(data):
+    print('Received data from client:', data)
+    company_number = data.get('company')
+    # algorithm_type = data.get('algorithmType')
+    # pixel_range = data.get('pixelRange')
+    file_type = data.get('file_type')
+    print(company_number)
+    print(file_type)
+    Session = getSession()
+    session = Session()
 
+    try:
+        company = session.query(Company).filter_by(id=company_number).first()
+        if company is None:
+            print(f'Error: Company with ID {company_number} not found')
+            emit('response_code', {'message': f'Company with ID {company_number} not found'}, broadcast=True)
+            return
+        print("Company with ID ", company)
+
+        # Convert algorithm type to bytes
+        # code_bytes = json.dumps(algorithm_type,pixel_range).encode('utf-8')
+        code_bytes = json.dumps(data.get('encryptedData')).encode('utf-8')
+        print(code_bytes)
+        if file_type == 'image':
+            company.code_image = code_bytes
+        elif file_type == 'audio':
+            company.code_audio = code_bytes
+        session.commit()
+        emit('response_code', {'message': 'Data has been received and processed successfully'}, broadcast=True)
+    except Exception as e:
+        print(f'Error: {str(e)}')
+        emit('response_code', {'message': f'Error: {str(e)}'}, broadcast=True)
+
+# Function to insert JSON data into the Company table
+def insert_company_from_json(json_data):
+    try:
+        company_name = json_data.get('company_name')
+        code = json_data.get('code')
+        Session = getSession()
+        session = Session()
+        # Convert code to bytes
+        code_bytes = json.dumps(code).encode('utf-8')
+
+        # Create a new company instance
+        new_company = Company(company_name=company_name, code=code_bytes)
+
+        # Add and commit the new company to the database
+        session.add(new_company)
+        session.commit()
+
+        return {'message': 'Company inserted successfully'}
+    except SQLAlchemyError as e:
+        return {'message': f'Error: {str(e)}'}
+
+from Rsa.decrypt import read_company_data
+from Rsa.decrypt import decrypt_Text_Rsa, decrypt_num_Rsa
+
+def decrypt_code(company_id,mode,path,text,file_type):
+    Session = getSession()
+    session = Session()
+
+    try:
+        company = session.query(Company).filter_by(id=company_id).first()
+        if company is None:
+            print(f'Error: Company with ID {company_id} not found')
+            return
+        code=''
+        print("Company with ID ", company)
+        if file_type =='image':
+            code = company.get_code_image()
+        elif file_type =='audio':
+            code = company.get_code_audio()
+        print(code)
+
+        # פענוח המחרוזת כ JSON
+        decoded_data = json.loads(code.decode("utf-8"))
+
+        # חילוץ ושמירת הערכים במשתנים
+        company_number = decoded_data["companyNumber"]
+        algorithm_type_encrypted = decoded_data["algorithmTypeEncrypted"]
+        pixel_range = decoded_data["pixelRange"]
+        file_type = decoded_data["fileType"]
+        print(algorithm_type_encrypted)
+        print(pixel_range)
+        key = read_company_data(1,file_type)
+        print(key)
+        algorithm_type_encrypted = decrypt_Text_Rsa(algorithm_type_encrypted,[key[1][0],key[2][0]])
+        print(algorithm_type_encrypted)
+        print(pixel_range)
+        pixel_range = decrypt_num_Rsa(pixel_range, [key[1][0],key[2][0]])
+        print(pixel_range)
+        return switch_code(company_id, algorithm_type_encrypted, pixel_range, file_type,mode,text,path)
+    except Exception as e:
+        print(f'Error: {str(e)}')

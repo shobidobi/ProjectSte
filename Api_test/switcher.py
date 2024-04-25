@@ -10,6 +10,7 @@ from Stenography.Audio.MSBEecodedA import encode as msb_encode_a
 from Stenography.Audio.MSBDecodedA import decode as msb_decode_a
 def switch_code(company_number,algorithm_type,pixel_range,file_type,mode,text,path):
     print("enter switch")
+    print(path)
     if algorithm_type=='LSB':
         if file_type=='image':
             if mode=='encode':

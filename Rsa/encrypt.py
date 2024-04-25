@@ -64,7 +64,7 @@ def get_random_prime_in_range(start, end):
 
     return random_prime
 
-def createKeys(user_id):
+def createKeys(id,Asks,file_type=''):
     print("Generating keys...")
     p= generate_prime(1000, 5000)
     q= generate_prime(1000, 5000)
@@ -80,7 +80,10 @@ def createKeys(user_id):
     print("Generated    d")
     private_key=(d,n)
     print(private_key)
-    update_or_create_key(user_id,private_key)
+    if Asks=='user':
+        update_or_create_key(id,private_key)
+    if Asks=='company':
+        write_to_file(id,private_key,file_type)
     public_key = (e, n)
     print(public_key)
     return public_key
@@ -109,6 +112,8 @@ def json_file_to_binary(json_file_path):
 
 
 
-
+def write_to_file(company_number, private_key, file_type):
+    with open("company_data.txt", "a") as f:
+        f.write(f"Company Number: {company_number}, Private Key: {private_key[0]},n:{private_key[1]},file_type:{file_type}\n")
 
 
