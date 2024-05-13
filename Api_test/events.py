@@ -1,23 +1,58 @@
 import json
-from sqlalchemy.exc import SQLAlchemyError
 from Api_test.switcher import switch_code
+from sqlalchemy.exc import SQLAlchemyError
 from Entity.PasswordsT import Passwords as EntityPasswordsTable
-from Rsa.encrypt import createKeys
+from Entity.Company import Company, get_company_count, add_company
+from Entity.User import Users
+from Entity.e import getSession
+from Entity.PasswordsT import Passwords
+from SendEmail import send_email, Newsletter
 from ViewObject.User import UserViewObject
 from sock_io import socketio
+from Rsa.encrypt import createKeys
+from Rsa.decrypt import decrypt_num_Rsa,decrypt_Text_Rsa, decrypt_Text_Rsa_user,read_company_data
+import os
+import base64
+from flask_socketio import  emit
 log = ["Login Successful",  # 0
        "User does not exist",  # 1
        "One of the details is incorrect",  # 2
        "error"]  # 3
 
 def calculate_hash(text):
+    """
+
+    :param text:  The input text to be hashed.
+    :return:the calculated value as a string.
+    This function takes text and calculates the ASCII code of each character in the text, then multiplies it by 5.
+    """
     hash_value = ''
     for char in text:
         # חישוב ה-ASCII code של התו וכפלו ב-5
         ascii_code = ord(char) * 5
         hash_value += str(ascii_code)
     return hash_value
+def calculate_hash_(text):
+    """
+
+    :param text:  The input text to be hashed.
+    :return:the calculated value as a string.
+    This function takes text and calculates the ASCII code of each character in the text, then division it by 5.
+    """
+    hash_value = ''
+    for char in text:
+        # חישוב ה-ASCII code של התו וכפלו ב-5
+        ascii_code = ord(char) / 5
+        hash_value += str(ascii_code)
+    return hash_value
 def check_user_info(username, password):
+    """
+    This function checks if the user exists in the system and if the password matches.
+    It takes a username and a password and checks them against the database.
+    :param username:The username of the user trying to log in.
+    :param password:The password of the user trying to log in.
+    :return:It returns the result of the check.
+    """
     print("---------------------------------------------")
     try:
         # Create session
@@ -53,87 +88,94 @@ user_view_object = UserViewObject('JohnDoe', 123456, 'abc123', '789',False)
 
 @socketio.on('login')
 def handle_login(data):
+    """
+    This function handles the "login" event from the client.
+    It checks the user's credentials using check_user_info and emits a response back to the client.
+    :param data: A dictionary containing the username and password sent from the client.
+    """
     username = data.get('username')
     password = data.get('password')
     result = check_user_info(username, password)
     emit('login_response', {'message': result, "user_view": user_view_object.to_dict()})
 
+@socketio.on('send_email')
+def send_email_to_user(data):
+    """
+    Sends an email to the user specified in the data.
+    :param data: A dictionary containing the user's email.
+    """
+    email = data.get('email')
+    Session = getSession()
+    session = Session()
+    user = session.query(Users).filter_by(email=email).first()
+    if user is not None:
+        num_code = send_email(email)
+        emit('email_sent', {'success': True, 'message': num_code})
+        print(data)
+        print(user)
+    else:
+        emit('email_sent', {'success': False, 'message': log[1]})
 
-from flask import Flask, request, jsonify
-from flask_socketio import SocketIO, emit
-from Rsa.decrypt import decrypt_Text_Rsa, decrypt_Text_Rsa_user
-from sock_io import socketio
+@socketio.on('submit_code')
+def submit_verification_code(data):
+    """
+    Handles the submission of verification code.
+    :param data: A dictionary containing the verification code.
+    """
+    code = data.get('code')
+    # Here you can implement your verification logic
+    emit('code_verified', {'success': True, 'message': 'Verification successful'})
+
+
+@socketio.on('change_password')
+def change_user_password(data):
+    """
+    Changes the password of the specified user.
+
+    :param data: A dictionary containing the username and new password.
+    """
+    Session = getSession()
+    session = Session()
+    username = data.get('username')
+    new_password = data.get('newPassword')
+    user = session.query(Users).filter_by(user_name=username).first()
+    if user is not None:
+        existing_password = session.query(Passwords).filter_by(password=new_password).first()
+        if existing_password is not None and existing_password.get_user_id() == user.get_id():
+            emit('password_changed', {'success': False, 'message': log[4]})
+        else:
+            psd = Passwords(user_id=user.get_id(), password=new_password)
+            session.add(psd)
+            session.commit()
+            emit('password_changed', {'success': True, 'message': log[0]})
+    else:
+        emit('password_changed', {'success': False, 'message': log[3]})
+
 
 
 def delete_file(file_path):
+    """
+    This function deletes a file from the system.
+    It takes the file path and deletes it.
+    :param file_path: The path of the file to be deleted.
+    """
     try:
         os.remove(file_path)
         print(f"File '{file_path}' deleted successfully.")
     except Exception as e:
         print(f"Error deleting file: {e}")
-def get_file_type(file_path):
-    # משיגים את סיומת הקובץ
-    file_extension = os.path.splitext(file_path)[1]
 
-    # מסודרים את הסוג של הקובץ לפי הסיומת
-    if file_extension == '':
-        file_type = 'No extension'
-    elif file_extension == '.txt':
-        file_type = 'txt'
-    elif  file_extension == '.jpeg':
-        file_type = 'jpeg'
-    elif file_extension == '.jpg':
-        file_type = 'jpg'
-    elif file_extension == '.png':
-        file_type = 'png'
-    elif file_extension == '.pdf':
-        file_type = 'pdf'
-    else:
-        file_type = 'Unknown'
 
-    return file_type
-# @socketio.on('encode')
-# def upload_file(data):
-#     file_data = data['file']
-#     text_value = data['text']
-#     file_type = data['option']
-#     print(text_value)
-#     user_id = data['user_id']
-#     t_d = decrypt_Text_Rsa(text_value, user_id)
-#     # Define the filename
-#     filename = 'uploaded_file' + str(user_id) + '.png'
-#     #filename = 'uploaded_file' + str(user_id) + '.wav'
-#     # if file_type == 'audio':
-#     #     file_name ='uploaded_file'+str(user_id)+'.wav'
-#     print(file_data)
-#     file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c', filename)
-#     # Save the file to the desired location
-#     if file_type == 'image':
-#         file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c', filename)
-#     elif file_type == 'audio':
-#         print("---------")
-#     with open(file_path, 'wb') as f:
-#         f.write(file_data)
-#
-#     # Encode the text into the file
-#     #encode_s(t_d, file_path)
-#     x,algorit=switch_code(1, 'LSB', [50,80], 'image', 'encode', t_d,file_path)
-#     if algorit!='LSB' and file_type == 'image':
-#         file_path=r'C:\Users\ariel\PycharmProjects\pythonProject1\image_c\modified_image.png'
-#     # Send the file back to the client
-#     with open(file_path, 'rb') as file:
-#         file_data = base64.b64encode(file.read()).decode('utf-8')
-#         emit('file_download', {'file': file_data})
-#
-#     # Emit a response back to the client
-#     emit('upload_response', {'message': 'File uploaded successfully'})
-#
-#     # Delete the file after processing
-#     delete_file(file_path)
 
 
 @socketio.on('encode')
 def upload_file(data):
+    """
+    This function handles file upload from the client.
+    It receives information about the file, performs encryption, sends it back to the client.
+    :param data:A dictionary containing information about the uploaded file,
+     including file data, text value, file type, and user ID.
+    """
     print("Uploading file...")
     print("Received data:", data)
     file_data = data['file'] # קבלת הנתונים בפורמט Uint8Array
@@ -169,19 +211,25 @@ def upload_file(data):
     # Send the file back to the client
     with open(file_path, 'rb') as file:
         file_data = base64.b64encode(file.read()).decode('utf-8')
-        emit('file_download', {'file': file_data}, binary=True)
+        emit('file_download', {'file': file_data}, binary=False)
+        print("Audio encoded and sent back to client")
 
     # Emit a response back to the client
     emit('upload_response', {'message': 'File uploaded successfully'})
 
     # Delete the file after processing
-    delete_file(file_path)
+    #delete_file(file_path)
 
-import os
-import base64
+
 
 @socketio.on('encode_audio')
 def upload_file(data):
+    """
+        This function handles file upload from the client.
+        It receives information about the file, performs encryption, sends it back to the client.
+        :param data:A dictionary containing information about the uploaded file,
+         including file data, text value, file type, and user ID.
+        """
     print("מעלה קובץ...")
     print("מקבל נתונים:", data)
 
@@ -235,8 +283,15 @@ def upload_file(data):
 
 @socketio.on('decode')
 def upload_file_d(data):
+    """
+    This function handles file upload for decoding from the client.
+    It receives information about the file, performs decryption, sends the result back to the client.
+    :param data:A dictionary containing information about the uploaded file,
+     including file data, user ID, and file type
+    """
     print("-------------------------------------------------------------------------")
-    file_data = data['file']
+    file_data = data.get('file')
+    file_bytes = bytes(file_data)
     user_id = data['user_id']
     file_type = data['option']
     # Define the filename
@@ -250,25 +305,25 @@ def upload_file_d(data):
     elif file_type=='audio':
         file_path = os.path.join(r'C:\Users\ariel\PycharmProjects\pythonProject1\Audio_c', filename)
     with open(file_path, 'wb') as f:
-        f.write(file_data)
+        f.write(file_bytes)
 
     # Encode the text into the file
     #message_d,A = switch_code(1, 'MSB', [50,80], file_type, 'decode','',file_path)
-    message_d, A = decrypt_code(1,'decode',file_path,'',file_type)
-    print(message_d)
+    message_d, A="",''
+    decryption_result = decrypt_code(1, 'decode', file_path, '', file_type)
+    if decryption_result is not None:
+        message_d, A = decryption_result
+        print(message_d)
+    else:
+        print("Failed to decrypt file")
+        message_d="Failed to decrypt file"
+
     # Emit a response back to the client
     emit('decode_response', {'message': message_d})
 
     # Delete the file after processing
     delete_file(file_path)
 
-
-
-from Entity.Company import Company
-from Entity.User import Users
-from Entity.e import getSession
-from Entity.PasswordsT import Passwords
-from sock_io import socketio
 
 Sign = [
     "Register successfully",  # 0
@@ -281,8 +336,27 @@ Sign = [
 ]
 
 
+@socketio.on('send_Newsletter')
+def handle_Newsletter(message):
+    """
+    Handles sending newsletter messages.
+    :param message: A dictionary containing the message data.
+    """
+    email=message['email']
+    print(email)
+    Newsletter(email)
+    emit('send_Newsletter', {})
 
 def check_register(_username, _password, _email, _company_id):
+    """
+    This function checks if a user can register in the system.
+    It takes a username, password, email, and company ID and checks them against the database.
+    :param _username:The username of the user trying to register.
+    :param _password: The password of the user trying to register.
+    :param _email: The email of the user trying to register.
+    :param _company_id:The ID of the company the user belongs to.
+    :return:the result of the check.
+    """
     print(_username, _password, _email, _company_id)
     try:
         # Create session
@@ -298,7 +372,7 @@ def check_register(_username, _password, _email, _company_id):
             return Sign[5]
 
         # Query user by username
-        user = session.query(Users).filter_by(user_name=_username).first()
+        user = session.query(Users).filter_by(user_name=calculate_hash_(_username)).first()
         if user:
             return Sign[1]
 
@@ -313,7 +387,7 @@ def check_register(_username, _password, _email, _company_id):
 
         user_s = session.query(Users).filter_by(user_name=_username).first()
         if user_s:
-            psd = Passwords(user_id=user_s.get_id(), password=_password)
+            psd = Passwords(user_id=user_s.get_id(), password=calculate_hash_(_password))
             session.add(psd)
             session.commit()
 
@@ -328,6 +402,11 @@ def check_register(_username, _password, _email, _company_id):
 
 @socketio.on('signup')
 def handle_signup(data):
+    """
+    This function handles the "signup" event from the client.
+    It checks the original data using check_register and emits a response back to the client.
+    :param data: A dictionary containing the username, password, email, and company ID sent from the client.
+    """
     username = data.get('username')
     password = data.get('password')
     email = data.get('email')
@@ -338,12 +417,24 @@ def handle_signup(data):
 
 @socketio.on('get_key_company')
 def get_key_company(data):
+    """
+    This function receives data about a company and retrieves its keys.
+    It emits the keys to the client.
+    :param data: A dictionary containing the company ID and file type for which keys are requested.
+    """
     company_id = data.get('company')
     file_type = data.get('file_type')
     p=createKeys(company_id,'company',file_type)
     emit('response', {'key':p})
 @socketio.on('create_code')
 def handle_create_code(data):
+    """
+    This function handles the creation of encrypted code and stores it in the database.
+    It receives information about the company and the code and saves it in the database.
+    :param data: A dictionary containing information about the company and the code to be created,
+    including company number and file type.
+
+    """
     print('Received data from client:', data)
     company_number = data.get('company')
     # algorithm_type = data.get('algorithmType')
@@ -378,6 +469,11 @@ def handle_create_code(data):
 
 # Function to insert JSON data into the Company table
 def insert_company_from_json(json_data):
+    """
+    This function inserts company data into the database.
+    It takes data in JSON format and inserts it into the database.
+    :param json_data:A JSON object containing the company name and code to be inserted into the database.
+    """
     try:
         company_name = json_data.get('company_name')
         code = json_data.get('code')
@@ -397,10 +493,19 @@ def insert_company_from_json(json_data):
     except SQLAlchemyError as e:
         return {'message': f'Error: {str(e)}'}
 
-from Rsa.decrypt import read_company_data
-from Rsa.decrypt import decrypt_Text_Rsa, decrypt_num_Rsa
+
 
 def decrypt_code(company_id,mode,path,text,file_type):
+    """
+    This function decrypts encrypted code stored in the database.
+    It takes the file path, the company ID, the file type, and the action required (encoding or decoding).
+    :param company_id:The ID of the company whose code needs to be decrypted.
+    :param mode: The mode of operation (encode or decode).
+    :param path:The file path.
+    :param text:The text value.
+    :param file_type:The type of file being decrypted.
+    :return:the result of the operation.
+    """
     Session = getSession()
     session = Session()
 
@@ -437,3 +542,29 @@ def decrypt_code(company_id,mode,path,text,file_type):
         return switch_code(company_id, algorithm_type_encrypted, pixel_range, file_type,mode,text,path)
     except Exception as e:
         print(f'Error: {str(e)}')
+
+def company_is_exist(company_name):
+    Session = getSession()
+    session = Session()
+    company_id = session.query(Company).filter_by(company_name=company_name).first()
+    if company_id:
+        return True
+    return False
+
+@socketio.on('admin')
+def admin(message):
+    """
+    Add or check company information.
+    :param message: A dictionary containing information about a company, such as its name.
+    """
+    num_of_company=get_company_count()
+    company_name=message['companyName']
+    print(num_of_company)
+    if company_is_exist(company_name):
+        print('exist')
+        emit('admin_information', {'message': 'the company is exist'})
+        return
+    mes=add_company(company_name)
+    print(company_is_exist(company_name))
+    print(mes)
+    emit('admin_information', {'message': mes['message']})

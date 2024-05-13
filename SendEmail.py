@@ -24,7 +24,16 @@ def send_email(email_receiver):
 
 # Log in and send the email
 
-
+def Newsletter(email_receiver):
+    body = "hey welcome to my newsletter"
+    em = EmailMessage()
+    em['From'] = email_sender
+    em['To'] = email_receiver
+    em['Subject'] = 'Newsletter'
+    em.set_content(body)
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+        smtp.login(email_sender, email_password)
+        smtp.sendmail(email_sender, email_receiver, em.as_string())
 
 def generate_four_digit_number():
     number = random.randint(1, 1000)

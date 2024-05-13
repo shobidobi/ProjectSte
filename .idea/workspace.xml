@@ -4,15 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="df1fb025-e2b4-47d0-afdf-95930b3d5fc8" name="Changes" comment="add audio">
+    <list default="true" id="df1fb025-e2b4-47d0-afdf-95930b3d5fc8" name="Changes" comment="add code for audio and image">
+      <change afterPath="$PROJECT_DIR$/Stenography/Stenography.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api_test/CompanyCode.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api_test/CompanyCode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Api_test/company_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Api_test/company_data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/CompanyCode.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controller_File.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/ForgotPassword.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Login.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/SignUp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/app.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api_test/Controller_File.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api_test/Controller_File.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api_test/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api_test/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api_test/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api_test/events.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Api_test/sock_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api_test/sock_io.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Api_test/switcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/Api_test/switcher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Entity/Company.py" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Company.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rsa/decrypt.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rsa/decrypt.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rsa/encrypt.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rsa/encrypt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SendEmail.py" beforeDir="false" afterPath="$PROJECT_DIR$/SendEmail.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Audio/LSBDncodedA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Audio/LSBDecodedA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Audio/LSBEncodedA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Audio/LSBEncodedA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Audio/MSBDecodedA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Audio/MSBDecodedA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Audio/MSBEecodedA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Audio/MSBEecodedA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Image/LSBDecoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/LSBDecoded.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Image/LSBEncode.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/LSBEncode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Image/MSBDecoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/MSBDecoded.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Image/MSBEncoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/MSBEncoded.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Image/PVDDecoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/PVDDecoded.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stenography/Image/PVDEncoded.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stenography/Image/PVDEncoded.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +42,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Python Unit Test" />
+        <option value="UML Use Case" />
+        <option value="UML Class" />
       </list>
     </option>
   </component>
@@ -55,68 +77,71 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Caracter.executor": "Run",
-    "Python.Characther.executor": "Run",
-    "Python.Company.executor": "Run",
-    "Python.CompanyCode.executor": "Run",
-    "Python.ConnectionDB.executor": "Run",
-    "Python.Controller_File.executor": "Run",
-    "Python.FFT.executor": "Debug",
-    "Python.ForgotPassword.executor": "Run",
-    "Python.LMU.executor": "Run",
-    "Python.LSBDecoded.executor": "Run",
-    "Python.LSBDncodedA.executor": "Run",
-    "Python.LSBEncode.executor": "Run",
-    "Python.LSBEncodedA.executor": "Run",
-    "Python.Login.executor": "Run",
-    "Python.MDECODE.executor": "Run",
-    "Python.MSBDecoded.executor": "Run",
-    "Python.MSBDecodedA.executor": "Run",
-    "Python.MSBEecodedA.executor": "Run",
-    "Python.MSBEncoded.executor": "Run",
-    "Python.MSBencode.executor": "Run",
-    "Python.PVDDecoded.executor": "Run",
-    "Python.PVDEncoded.executor": "Run",
-    "Python.PasswordsT.executor": "Run",
-    "Python.SendEmail.executor": "Run",
-    "Python.SignUp.executor": "Run",
-    "Python.T.executor": "Run",
-    "Python.User.executor": "Run",
-    "Python.app (1).executor": "Run",
-    "Python.app.executor": "Run",
-    "Python.check.executor": "Debug",
-    "Python.decode.executor": "Run",
-    "Python.decrypt.executor": "Debug",
-    "Python.e.executor": "Run",
-    "Python.encrypt.executor": "Run",
-    "Python.events.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.prime.executor": "Run",
-    "Python.reade.executor": "Run",
-    "Python.switcher.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/ariel/PycharmProjects/pythonProject1/Api_test",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "python.debugger.dataview.coloredbydefault": "false",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Class&quot;,
+    &quot;Python tests.Python tests in t.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Caracter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Characther.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Company.executor&quot;: &quot;Run&quot;,
+    &quot;Python.CompanyCode.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ConnectionDB.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Controller_File.executor&quot;: &quot;Run&quot;,
+    &quot;Python.FFT.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.ForgotPassword.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LMU.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LSBDecoded.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LSBDecodedA.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LSBDncodedA.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LSBEncode.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LSBEncodedA.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Login.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MDECODE.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MSBDecoded.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MSBDecodedA.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MSBEecodedA.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MSBEncoded.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MSBencode.executor&quot;: &quot;Run&quot;,
+    &quot;Python.PVDDecoded.executor&quot;: &quot;Run&quot;,
+    &quot;Python.PVDEncoded.executor&quot;: &quot;Run&quot;,
+    &quot;Python.PasswordsT.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SendEmail.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SignUp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.T.executor&quot;: &quot;Run&quot;,
+    &quot;Python.User.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.check.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.decode.executor&quot;: &quot;Run&quot;,
+    &quot;Python.decrypt.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.e.executor&quot;: &quot;Run&quot;,
+    &quot;Python.encrypt.executor&quot;: &quot;Run&quot;,
+    &quot;Python.events.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.prime.executor&quot;: &quot;Run&quot;,
+    &quot;Python.reade.executor&quot;: &quot;Run&quot;,
+    &quot;Python.switcher.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ariel/PycharmProjects/pythonProject1/Api_test&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;python.debugger.dataview.coloredbydefault&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ariel\PycharmProjects\pythonProject1\Api_test" />
@@ -176,29 +201,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Login" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="pythonProject1" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/API" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/API/Login.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="app (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="pythonProject1" />
       <option name="ENV_FILES" value="" />
@@ -214,29 +216,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Api_test/app.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="pythonProject1" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/API" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/API/app.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -268,13 +247,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests in t.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="pythonProject1" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Stenography" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Stenography/t.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.app (1)" />
-        <item itemvalue="Python.app" />
+        <item itemvalue="Python tests.Python tests in t.py" />
         <item itemvalue="Python.ForgotPassword" />
         <item itemvalue="Python.Controller_File" />
-        <item itemvalue="Python.Login" />
       </list>
     </recent_temporary>
   </component>
@@ -354,7 +348,20 @@
       <workItem from="1713681245226" duration="23637000" />
       <workItem from="1713766091845" duration="12467000" />
       <workItem from="1713893111763" duration="13926000" />
-      <workItem from="1713937973754" duration="12957000" />
+      <workItem from="1713937973754" duration="29398000" />
+      <workItem from="1714129488671" duration="11668000" />
+      <workItem from="1714245211704" duration="6033000" />
+      <workItem from="1714283000545" duration="3218000" />
+      <workItem from="1714314890893" duration="4475000" />
+      <workItem from="1714411341232" duration="1128000" />
+      <workItem from="1714459980683" duration="4047000" />
+      <workItem from="1714546621429" duration="2389000" />
+      <workItem from="1714634019438" duration="4855000" />
+      <workItem from="1714846600548" duration="3055000" />
+      <workItem from="1715070651771" duration="9929000" />
+      <workItem from="1715278099886" duration="373000" />
+      <workItem from="1715589425471" duration="1200000" />
+      <workItem from="1715608162122" duration="3189000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -444,7 +451,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713791426848</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add code for audio and image">
+      <option name="closed" value="true" />
+      <created>1714035919532</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1714035919532</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -455,7 +470,8 @@
     <MESSAGE value="add email sender" />
     <MESSAGE value="add switcher" />
     <MESSAGE value="add audio" />
-    <option name="LAST_COMMIT_MESSAGE" value="add audio" />
+    <MESSAGE value="add code for audio and image" />
+    <option name="LAST_COMMIT_MESSAGE" value="add code for audio and image" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -488,12 +504,13 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/pythonProject1$main.coverage" NAME="main Coverage Results" MODIFIED="1711438439504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$User.coverage" NAME="User Coverage Results" MODIFIED="1713291562670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ViewObject" />
-    <SUITE FILE_PATH="coverage/pythonProject1$MSBEncoded.coverage" NAME="MSBEncoded Coverage Results" MODIFIED="1713652490155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
+    <SUITE FILE_PATH="coverage/pythonProject1$MSBEncoded.coverage" NAME="MSBEncoded Coverage Results" MODIFIED="1714248049867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
     <SUITE FILE_PATH="coverage/pythonProject1$ConnectionDB.coverage" NAME="ConnectionDB Coverage Results" MODIFIED="1706872911093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DB" />
     <SUITE FILE_PATH="coverage/pythonProject1$Characther.coverage" NAME="Characther Coverage Results" MODIFIED="1710437536551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Entity" />
-    <SUITE FILE_PATH="coverage/pythonProject1$LSBDecoded.coverage" NAME="LSBDecoded Coverage Results" MODIFIED="1713529779096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
-    <SUITE FILE_PATH="coverage/pythonProject1$MSBDecodedA.coverage" NAME="MSBDecodedA Coverage Results" MODIFIED="1713776523596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
     <SUITE FILE_PATH="coverage/pythonProject1$Company.coverage" NAME="Company Coverage Results" MODIFIED="1713939308619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Entity" />
+    <SUITE FILE_PATH="coverage/pythonProject1$LSBDecoded.coverage" NAME="LSBDecoded Coverage Results" MODIFIED="1714247778658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
+    <SUITE FILE_PATH="coverage/pythonProject1$MSBDecodedA.coverage" NAME="MSBDecodedA Coverage Results" MODIFIED="1714284394481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
+    <SUITE FILE_PATH="coverage/pythonProject1$LSBDecodedA.coverage" NAME="LSBDecodedA Coverage Results" MODIFIED="1714249322829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
     <SUITE FILE_PATH="coverage/pythonProject1$SignUp.coverage" NAME="SignUp Coverage Results" MODIFIED="1713090342511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/API" />
     <SUITE FILE_PATH="coverage/pythonProject1$PasswordsT.coverage" NAME="PasswordsT Coverage Results" MODIFIED="1712320408027" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Entity" />
     <SUITE FILE_PATH="coverage/pythonProject1$app.coverage" NAME="app Coverage Results" MODIFIED="1713775233404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/API" />
@@ -506,25 +523,26 @@
     <SUITE FILE_PATH="coverage/pythonProject1$prime.coverage" NAME="prime Coverage Results" MODIFIED="1711453480208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$CompanyCode.coverage" NAME="CompanyCode Coverage Results" MODIFIED="1713792700885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Api_test" />
     <SUITE FILE_PATH="coverage/pythonProject1$LSBDncodedA.coverage" NAME="LSBDncodedA Coverage Results" MODIFIED="1713777278889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
-    <SUITE FILE_PATH="coverage/pythonProject1$MSBDecoded.coverage" NAME="MSBDecoded Coverage Results" MODIFIED="1713652481059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
+    <SUITE FILE_PATH="coverage/pythonProject1$MSBDecoded.coverage" NAME="MSBDecoded Coverage Results" MODIFIED="1714248245037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
     <SUITE FILE_PATH="coverage/pythonProject1$T.coverage" NAME="T Coverage Results" MODIFIED="1710362158522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$encrypt.coverage" NAME="encrypt Coverage Results" MODIFIED="1713188227750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Rsa" />
     <SUITE FILE_PATH="coverage/pythonProject1$MDECODE.coverage" NAME="MDECODE Coverage Results" MODIFIED="1711096236765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$MSBencode.coverage" NAME="MSBencode Coverage Results" MODIFIED="1711096232940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$Controller_File.coverage" NAME="Controller_File Coverage Results" MODIFIED="1713430968724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/API" />
-    <SUITE FILE_PATH="coverage/pythonProject1$MSBEecodedA.coverage" NAME="MSBEecodedA Coverage Results" MODIFIED="1713701831218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
-    <SUITE FILE_PATH="coverage/pythonProject1$LSBEncode.coverage" NAME="LSBEncode Coverage Results" MODIFIED="1713652507538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
-    <SUITE FILE_PATH="coverage/pythonProject1$PVDEncoded.coverage" NAME="PVDEncoded Coverage Results" MODIFIED="1713683011967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
-    <SUITE FILE_PATH="coverage/pythonProject1$LSBEncodedA.coverage" NAME="LSBEncodedA Coverage Results" MODIFIED="1713777274447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
+    <SUITE FILE_PATH="coverage/pythonProject1$MSBEecodedA.coverage" NAME="MSBEecodedA Coverage Results" MODIFIED="1714249946486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
+    <SUITE FILE_PATH="coverage/pythonProject1$LSBEncode.coverage" NAME="LSBEncode Coverage Results" MODIFIED="1714247755919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
+    <SUITE FILE_PATH="coverage/pythonProject1$PVDEncoded.coverage" NAME="PVDEncoded Coverage Results" MODIFIED="1714248707514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
+    <SUITE FILE_PATH="coverage/pythonProject1$.coverage" NAME=" Coverage Results" MODIFIED="1714137393289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography" />
+    <SUITE FILE_PATH="coverage/pythonProject1$LSBEncodedA.coverage" NAME="LSBEncodedA Coverage Results" MODIFIED="1714284496487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Audio" />
     <SUITE FILE_PATH="coverage/pythonProject1$Caracter.coverage" NAME="Caracter Coverage Results" MODIFIED="1710437108207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Entity" />
     <SUITE FILE_PATH="coverage/pythonProject1$switcher.coverage" NAME="switcher Coverage Results" MODIFIED="1713538750414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Api_test" />
     <SUITE FILE_PATH="coverage/pythonProject1$events.coverage" NAME="events Coverage Results" MODIFIED="1713539065369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Api_test" />
     <SUITE FILE_PATH="coverage/pythonProject1$reade.coverage" NAME="reade Coverage Results" MODIFIED="1706373514570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject1$SendEmail.coverage" NAME="SendEmail Coverage Results" MODIFIED="1711713613417" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/pythonProject1$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1714027892654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Api_test" />
+    <SUITE FILE_PATH="coverage/pythonProject1$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1715615696308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Api_test" />
     <SUITE FILE_PATH="coverage/pythonProject1$FFT.coverage" NAME="FFT Coverage Results" MODIFIED="1713252292327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Rsa" />
     <SUITE FILE_PATH="coverage/pythonProject1$Login.coverage" NAME="Login Coverage Results" MODIFIED="1713430942906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/API" />
-    <SUITE FILE_PATH="coverage/pythonProject1$PVDDecoded.coverage" NAME="PVDDecoded Coverage Results" MODIFIED="1713683022270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
     <SUITE FILE_PATH="coverage/pythonProject1$test.coverage" NAME="test Coverage Results" MODIFIED="1713942650390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pythonProject1$PVDDecoded.coverage" NAME="PVDDecoded Coverage Results" MODIFIED="1714248848927" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Stenography/Image" />
   </component>
 </project>

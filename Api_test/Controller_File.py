@@ -7,7 +7,7 @@ import base64
 from Stenography.Image.LSBEncode import lsb
 from Stenography.Image.LSBDecoded import decode as lsb_d
 from Stenography.Audio.LSBEncodedA import encode
-from Stenography.Audio.LSBDncodedA import decode
+from Stenography.Audio.LSBDecodedA import decode
 from Rsa.decrypt import decrypt_Text_Rsa
 
 import PIL
